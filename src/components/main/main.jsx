@@ -1,12 +1,14 @@
 import React from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 import {nanoid} from "nanoid";
 
-const Main = () => {
-  const arr = new Array(5).fill(1);
-  // console.log('00', arr)
-  // arr.map(() => console.log('11'))
+const Main = (props) => {
+
+  const {quantityOffers} = props;
+
+  const arr = new Array(quantityOffers).fill(1);
+
   return (
     <>
       <div style={{display: `none`}}>
@@ -151,10 +153,10 @@ const Main = () => {
   );
 };
 
-{
-  /* App.propTypes = {
-  errorsCount: PropTypes.number.isRequired,
-}; */
-}
+
+Main.propTypes = {
+  quantityOffers: PropTypes.number.isRequired,
+};
+
 
 export default Main;
