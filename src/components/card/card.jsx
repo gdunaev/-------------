@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-// import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const Card = () => {
-  // const {errorsCount} = props;
 
   return (
     <article className="cities__place-card place-card">
@@ -43,8 +41,5 @@ const Card = () => {
   );
 };
 
-// WelcomeScreen.propTypes = {
-//   errorsCount: PropTypes.number.isRequired,
-// };
 
 export default Card;

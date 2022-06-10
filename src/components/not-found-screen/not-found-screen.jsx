@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import {AppRoute} from "../../const";
+
+import {Link} from "react-router-dom";
 
 const NotFoundScreen = () => {
-
   return (
-    <h1>404 Not found</h1>
+    <section>
+      <h1>404. Page not found</h1>
+      <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
+    </section>
   );
 };
 

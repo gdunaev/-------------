@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Card from '../card/card'
+import Card from '../card/card';
 import {nanoid} from "nanoid";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const MainPage = (props) => {
 
