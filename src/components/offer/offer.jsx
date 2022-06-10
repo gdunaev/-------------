@@ -3,7 +3,10 @@ import React from 'react';
 const Offer = () => {
 
   return (
+    <>
     <h1>Offer</h1>
+    </>
+    
   );
 };
 

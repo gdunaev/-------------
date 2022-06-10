@@ -14,7 +14,7 @@ const Favorites = () => {
         <div class="container">
           <div class="header__wrapper">
             <div class="header__left">
-              <Link class="header__logo-link" to="main.html">
+              <Link class="header__logo-link" to="#">
                 <img class="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>

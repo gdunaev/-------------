@@ -10,7 +10,9 @@ const Card = (props) => {
   const arr = new Array(quantityOffers).fill(1);
 
   return (
+    <>
     arr.map(() => (<PlaceCard key={nanoid()} />))
+    </>
   );
 };
 
