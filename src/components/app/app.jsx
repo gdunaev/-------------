@@ -1,7 +1,6 @@
 import React from "react";
-// import PropTypes from "prop-types";
-import {propTypesOffers} from "../../prop-types-site";
-import Card from "../card/card";
+import {offersPropTypes} from "../../prop-types-site";
+import Card from "../offer/offer";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
 import Favorites from "../favorites/favorites";
@@ -30,6 +29,6 @@ function App(props) {
   );
 }
 
-// App.PropTypes = propTypesOffers;
+App.PropTypes = offersPropTypes;
 
 export default App;

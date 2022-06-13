@@ -1,14 +1,28 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {offerPropTypes} from "../../prop-types-site";
 
-const Card = (props) => {
+const PercentRating = 20;
 
-  // const {offer} = props;
-  // console.log('11', offer)
+const getRating = (rating) => {
+  return {
+    width: `${Math.round(rating) * PercentRating}%`,
+  };
+};
+
+const Offer = (props) => {
+
+  const {offer} = props;
+
+  const rating = getRating(offer.rating);
+  // console.log(`11`, rating);
+
+  const isFavorite = offer.isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
+  const isPremium = offer.isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
 
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark">
+      <div className= {isPremium}>
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -19,10 +33,10 @@ const Card = (props) => {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className= {isFavorite} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -31,18 +45,19 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}} ></span>
+            <span style={rating}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to="#">{offer.title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
 };
 
+Offer.propTypes = offerPropTypes;
 
-export default Card;
+export default Offer;

@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {offers} from './mocks/offers';
+import {offers} from './mocks/offers-mock';
 
-// const QUANTITY_OFFERS = 3;
 
 ReactDOM.render(
     <App

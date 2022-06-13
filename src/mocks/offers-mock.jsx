@@ -12,22 +12,22 @@ const offers = [
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
-      "avatar_url": `img/1.png`,
+      "avatarUrl": `img/1.png`,
       "id": 3,
-      "is_pro": true,
+      "isPro": true,
       "name": `Angelina`
     },
     "id": 1,
     "images": [`img/1.png`, `img/2.png`],
-    "is_favorite": false,
-    "is_premium": false,
+    "isFavorite": true,
+    "isPremium": true,
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "max_adults": 4,
-    "preview_image": `img/1.png`,
+    "maxAdults": 4,
+    "previewImage": `img/1.png`,
     "price": 120,
     "rating": 4.8,
     "title": `Beautiful & luxurious studio at great location`,
@@ -47,25 +47,25 @@ const offers = [
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
-      "avatar_url": `img/1.png`,
+      "avatarUrl": `img/1.png`,
       "id": 3,
-      "is_pro": true,
+      "isPro": true,
       "name": `Angelina`
     },
     "id": 2,
     "images": [`img/1.png`, `img/2.png`],
-    "is_favorite": false,
-    "is_premium": false,
+    "isFavorite": true,
+    "isPremium": false,
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "max_adults": 4,
-    "preview_image": `img/1.png`,
+    "maxAdults": 4,
+    "previewImage": `img/1.png`,
     "price": 120,
-    "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "rating": 3.2,
+    "title": `at great location`,
     "type": `apartment`
   },
   {
@@ -81,25 +81,25 @@ const offers = [
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
-      "avatar_url": `img/1.png`,
+      "avatarUrl": `img/1.png`,
       "id": 3,
-      "is_pro": true,
+      "isPro": true,
       "name": `Angelina`
     },
     "id": 3,
     "images": [`img/1.png`, `img/2.png`],
-    "is_favorite": false,
-    "is_premium": false,
+    "isFavorite": false,
+    "isPremium": true,
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "max_adults": 4,
-    "preview_image": `img/1.png`,
+    "maxAdults": 4,
+    "previewImage": `img/1.png`,
     "price": 120,
-    "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "rating": 2.1,
+    "title": `luxurious studio at great location`,
     "type": `apartment`
   },
   {
@@ -115,25 +115,25 @@ const offers = [
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
-      "avatar_url": `img/1.png`,
+      "avatarUrl": `img/1.png`,
       "id": 3,
-      "is_pro": true,
+      "isPro": true,
       "name": `Angelina`
     },
     "id": 4,
     "images": [`img/1.png`, `img/2.png`],
-    "is_favorite": false,
-    "is_premium": false,
+    "isFavorite": false,
+    "isPremium": false,
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "max_adults": 4,
-    "preview_image": `img/1.png`,
+    "maxAdults": 4,
+    "previewImage": `img/1.png`,
     "price": 120,
-    "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "rating": 1.4,
+    "title": `Beautiful`,
     "type": `apartment`
   }
 ];
