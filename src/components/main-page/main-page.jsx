@@ -1,14 +1,15 @@
 import React from "react";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Card from '../card/card';
-import {nanoid} from "nanoid";
+// import {nanoid} from "nanoid";
 import {Link} from "react-router-dom";
+import {propTypesOffers} from "../../prop-types-site";
 
 const MainPage = (props) => {
 
-  const {quantityOffers} = props;
+  const {offers} = props;
 
-  const arr = new Array(quantityOffers).fill(1);
+  // const arr = new Array(quantityOffers).fill(1);
 
   return (
     <>
@@ -138,8 +139,8 @@ const MainPage = (props) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {arr.map(() => (
-                    <Card key={nanoid()} />
+                  {offers.map((offer) => (
+                    <Card key={offer.id} offer = {offer}/>
                   ))}
                 </div>
               </section>
@@ -155,9 +156,7 @@ const MainPage = (props) => {
 };
 
 
-MainPage.propTypes = {
-  quantityOffers: PropTypes.number.isRequired,
-};
+MainPage.propTypes = propTypesOffers;
 
 
 export default MainPage;

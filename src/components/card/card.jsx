@@ -1,7 +1,10 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const Card = () => {
+const Card = (props) => {
+
+  // const {offer} = props;
+  // console.log('11', offer)
 
   return (
     <article className="cities__place-card place-card">
