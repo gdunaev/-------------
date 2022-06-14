@@ -76,7 +76,7 @@ const offers = [
         "longitude": 4.895168,
         "zoom": 10
       },
-      "name": `Amsterdam`
+      "name": `Cologne`
     },
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
@@ -88,7 +88,7 @@ const offers = [
     },
     "id": 3,
     "images": [`img/1.png`, `img/2.png`],
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "location": {
       "latitude": 52.35514938496378,

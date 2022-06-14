@@ -3,7 +3,7 @@ import {AppRoute} from "../../const";
 
 import {Link} from "react-router-dom";
 
-const NotFoundScreen = () => {
+const NotFoundPage = () => {
   return (
     <section>
       <h1>404. Page not found</h1>
@@ -12,4 +12,4 @@ const NotFoundScreen = () => {
   );
 };
 
-export default NotFoundScreen;
+export default NotFoundPage;

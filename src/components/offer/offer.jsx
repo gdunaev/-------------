@@ -15,7 +15,7 @@ const Offer = (props) => {
   const {offer} = props;
 
   const rating = getRating(offer.rating);
-  // console.log(`11`, rating);
+  // console.log(`11`, offer);
 
   const isFavorite = offer.isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
   const isPremium = offer.isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
