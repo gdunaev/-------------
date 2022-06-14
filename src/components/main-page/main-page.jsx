@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {propTypesOffers} from "../../prop-types-site";
+import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 
 const MainPage = (props) => {
@@ -120,7 +120,7 @@ const MainPage = (props) => {
 };
 
 
-MainPage.propTypes = propTypesOffers;
+MainPage.propTypes = offersPropTypes;
 
 
 export default MainPage;

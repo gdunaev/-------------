@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const propTypesOffers = {
+const offersPropTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
     bedrooms: PropTypes.number.isRequired,
     city: PropTypes.shape({
@@ -37,7 +37,7 @@ const propTypesOffers = {
   })).isRequired,
 };
 
-const propTypesOffer = {
+const offerPropTypes = {
   offer: PropTypes.shape({
     bedrooms: PropTypes.number.isRequired,
     city: PropTypes.shape({
@@ -74,4 +74,4 @@ const propTypesOffer = {
   }).isRequired,
 };
 
-export {propTypesOffers, propTypesOffer};
+export {offersPropTypes, offerPropTypes};
