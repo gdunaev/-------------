@@ -4,11 +4,29 @@ import {offerPropTypes} from "../../prop-types-site";
 import {getRating} from '../../const';
 import PropTypes from 'prop-types';
 
+const getActiveOffer = (target, setStateActiveOffer) => {
 
+  let checkedParent = target.parentElement;
+  let id = null;
+  while (checkedParent) {
+    // if(checkedParent === null) {
+    //   break;
+    // }
+    if(typeof checkedParent.className === 'string' && checkedParent.className.includes(`cities__place-card`)) {
+      id = checkedParent.id;
+      break;
+    } else {
+      checkedParent = checkedParent.parentElement;
+    }
+  }
+  if (id) {
+    setStateActiveOffer(id);
+  }
+};
 
 const Offer = (props) => {
 
-  const {offer, getActiveOffer} = props;
+  const {offer, setStateActiveOffer} = props;
   const {id, price, isFavorite, isPremium, title, type, rating} = offer;
 
   const ratingStyle = getRating(rating);
@@ -19,9 +37,7 @@ const Offer = (props) => {
 
   return (
     <article className="cities__place-card place-card" id = {id} onMouseOver={(evt) => {
-      //  console.log('11-11', evt.target);
-      getActiveOffer(evt.target);
-
+        getActiveOffer(evt.target, setStateActiveOffer);
       }}>
 
       <div className= {isPremiumClassName}>
@@ -62,7 +78,7 @@ const Offer = (props) => {
 
 Offer.propTypes = {
   offer: offerPropTypes,
-  getActiveOffer: PropTypes.func.isRequired,
+  setStateActiveOffer: PropTypes.func.isRequired,
 };
 
 export default Offer;

@@ -7,30 +7,8 @@ const OffersList = (props) => {
 
   const {offers} = props;
 
-  const [stateOffer, setStateOffer] = useState(0);
-
-  const getActiveOffer = (target) => {
-
-    let checkedParent = target.parentElement;
-    let id = null;
-    while(true) {
-      if(checkedParent === null) {
-        break;
-      }
-      if(typeof checkedParent.className === 'string' && checkedParent.className.includes(`cities__place-card`)) {
-        id = checkedParent.id;
-        break;
-      } else {
-        checkedParent = checkedParent.parentElement;
-      }
-    }
-    if (id) {
-      setStateOffer(id);
-    }
-    // console.log('000', id, stateOffer)
-  };
-
-
+  const [stateActiveOffer, setStateActiveOffer] = useState(0);
+//  console.log('11', stateActiveOffer)
   return (
     <>
       <section className="cities__places places">
@@ -61,7 +39,7 @@ const OffersList = (props) => {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <Offer key={offer.id} offer={offer} getActiveOffer = {getActiveOffer}/>
+            <Offer key={offer.id} offer={offer} setStateActiveOffer = {setStateActiveOffer}/>
           ))}
         </div>
       </section>
