@@ -1,28 +1,23 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
+import { getRating } from '../../const';
 
-const PercentRating = 20;
-
-const getRating = (rating) => {
-  return {
-    width: `${Math.round(rating) * PercentRating}%`,
-  };
-};
 
 const Offer = (props) => {
 
   const {offer} = props;
+  const {price, isFavorite, isPremium, title, type, rating} = offer;
 
-  const rating = getRating(offer.rating);
+  const ratingStyle = getRating(rating);
   // console.log(`11`, offer);
 
-  const isFavorite = offer.isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
-  const isPremium = offer.isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
+  const isFavoriteClassName = isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
+  const isPremiumClassName = isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
 
   return (
     <article className="cities__place-card place-card">
-      <div className= {isPremium}>
+      <div className= {isPremiumClassName}>
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -33,10 +28,10 @@ const Offer = (props) => {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className= {isFavorite} type="button">
+          <button className= {isFavoriteClassName} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -45,14 +40,14 @@ const Offer = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={rating}></span>
+            <span style={ratingStyle}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">{offer.title}</Link>
+          <Link to="#">{title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

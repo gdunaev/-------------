@@ -2,13 +2,15 @@
 import React from "react";
 import {offerPropTypes} from "../../prop-types-site";
 import {Link} from "react-router-dom";
-
+import { getRating } from '../../const';
 
 
 const Favorite = (props) => {
 
   const {offer} = props;
-  const {} = offer;
+  const {price, title, type, rating} = offer;
+
+  const ratingStyle = getRating(rating);
 
   return (
     <>
@@ -27,7 +29,7 @@ const Favorite = (props) => {
         <div className="favorites__card-info place-card__info">
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
-              <b className="place-card__price-value">&euro;180</b>
+              <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button
@@ -42,14 +44,14 @@ const Favorite = (props) => {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: `100%` }}></span>
+              <span style={ratingStyle}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to="#">Nice, cozy, warm big bed apartment</Link>
+            <Link to="#">{title}</Link>
           </h2>
-          <p className="place-card__type">Apartment</p>
+          <p className="place-card__type">{type}</p>
         </div>
       </article>
     </>
