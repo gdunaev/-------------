@@ -3,6 +3,7 @@ import React from "react";
 import {offersPropTypes} from "../../prop-types-site";
 import {Link} from "react-router-dom";
 import Favorite from "../favorite/favorite";
+import PropTypes from 'prop-types';
 
 
 
@@ -33,7 +34,9 @@ const FavoritesList = (props) => {
 };
 
 
-FavoritesList.propTypes = offersPropTypes;
+FavoritesList.propTypes = {...offersPropTypes,
+  city: PropTypes.string.isRequired,
+};
 
 
 export default FavoritesList;

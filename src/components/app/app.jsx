@@ -30,6 +30,6 @@ function App(props) {
   );
 }
 
-App.PropTypes = offersPropTypes;
+App.propTypes = {...offersPropTypes};
 
 export default App;

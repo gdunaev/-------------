@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import Offer from '../offer/offer';
+import OfferCard from '../offer-card/offer-card';
 import {offersPropTypes} from "../../prop-types-site";
 
 const OffersList = (props) => {
@@ -39,7 +39,7 @@ const OffersList = (props) => {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <Offer key={offer.id} offer={offer} setStateActiveOffer = {setStateActiveOffer}/>
+            <OfferCard key={offer.id} offer={offer} setStateActiveOffer = {setStateActiveOffer}/>
           ))}
         </div>
       </section>
