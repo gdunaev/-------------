@@ -1,13 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
-import { getRating } from '../../const';
+import {getRating} from '../../const';
+import PropTypes from 'prop-types';
+
 
 
 const Offer = (props) => {
 
-  const {offer} = props;
-  const {price, isFavorite, isPremium, title, type, rating} = offer;
+  const {offer, getActiveOffer} = props;
+  const {id, price, isFavorite, isPremium, title, type, rating} = offer;
 
   const ratingStyle = getRating(rating);
   // console.log(`11`, offer);
@@ -16,7 +18,12 @@ const Offer = (props) => {
   const isPremiumClassName = isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" id = {id} onMouseOver={(evt) => {
+      //  console.log('11-11', evt.target);
+      getActiveOffer(evt.target);
+
+      }}>
+
       <div className= {isPremiumClassName}>
         <span>Premium</span>
       </div>
@@ -53,6 +60,9 @@ const Offer = (props) => {
   );
 };
 
-Offer.propTypes = offerPropTypes;
+Offer.propTypes = {
+  offer: offerPropTypes,
+  getActiveOffer: PropTypes.func.isRequired,
+};
 
 export default Offer;
