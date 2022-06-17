@@ -31,6 +31,8 @@ const getFavorites = (offers) => {
 
 const FavoritesPage = (props) => {
 
+  console.log(`33`, props);
+
   const {offers} = props;
   const offersFavorite = getFavorites(offers);
   // const cities = getCities(offers);

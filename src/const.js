@@ -3,7 +3,7 @@ const PercentRating = 20;
 
 const AppRoute = {
   MAIN: `/`,
-  OFFER: `/offer`,
+  OFFER: `/offer/:id?`,
   FAVORITES: `/favorites`,
   LOGIN: `/login`,
 };

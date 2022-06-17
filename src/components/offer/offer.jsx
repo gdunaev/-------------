@@ -6,8 +6,10 @@ import {getRating} from '../../const';
 
 const Offer = (props) => {
 
+  const {offer, test} = props;
 
-  const {offer} = props;
+  // console.log('44', props)
+
   const {price, title, type, rating} = offer;
 
   const ratingStyle = getRating(rating);

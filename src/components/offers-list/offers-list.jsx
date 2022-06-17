@@ -4,11 +4,18 @@ import OfferCard from '../offer-card/offer-card';
 import {offersPropTypes} from "../../prop-types-site";
 
 const OffersList = (props) => {
-
+  // console.log(`22`, props);
   const {offers} = props;
 
-  const [stateActiveOffer, setStateActiveOffer] = useState(0);
-//  console.log('11', stateActiveOffer)
+  const handleMouseOver = (offer) => {
+    setActiveOffer(offer);
+    // console.log('11', offer)
+  };
+
+  const [activeOffer, setActiveOffer] = useState(0);
+
+  // console.log('11', activeOffer)
+
   return (
     <>
       <section className="cities__places places">
@@ -39,7 +46,7 @@ const OffersList = (props) => {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} setStateActiveOffer = {setStateActiveOffer}/>
+            <OfferCard key={offer.id} offer={offer} onMouseOver = {handleMouseOver}/>
           ))}
         </div>
       </section>

@@ -15,9 +15,8 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.FAVORITES} render={() => <FavoritesPage offers={offers}/>} />
-        <Route exact path={AppRoute.OFFER}>
-          <Offer offer={offers[0]}/>
-        </Route>
+        <Route exact path={AppRoute.OFFER} render={(props) => <Offer offer={offers[0]} test={props}/>} />
+
         <Route exact path={AppRoute.LOGIN} component={LoginPage} />
         <Route exact path={AppRoute.MAIN}>
           <MainPage offers={offers} />

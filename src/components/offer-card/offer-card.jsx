@@ -3,49 +3,31 @@ import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
 import {getRating} from '../../const';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const getActiveOffer = (target, setStateActiveOffer) => {
-
-  let checkedParent = target.parentElement;
-  let id = null;
-  while (checkedParent) {
-    // if(checkedParent === null) {
-    //   break;
-    // }
-    if(typeof checkedParent.className === 'string' && checkedParent.className.includes(`cities__place-card`)) {
-      id = checkedParent.id;
-      break;
-    } else {
-      checkedParent = checkedParent.parentElement;
-    }
-  }
-  if (id) {
-    setStateActiveOffer(id);
-  }
-};
 
 const OfferCard = (props) => {
 
-  const {offer, setStateActiveOffer} = props;
-  const {id, price, isFavorite, isPremium, title, type, rating} = offer;
+  const {offer, onMouseOver} = props;
+  const {id, price, isFavorite, isPremium, title, type, rating, previewImage} = offer;
 
   const ratingStyle = getRating(rating);
-  // console.log(`11`, offer);
-
   const isFavoriteClassName = isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
   const isPremiumClassName = isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
 
-  return (
-    <article className="cities__place-card place-card" id = {id} onMouseOver={(evt) => {
-        getActiveOffer(evt.target, setStateActiveOffer);
-      }}>
+  const handleMouseOver = () => {
+    onMouseOver(offer);
+  };
 
+  return (
+    <article className="cities__place-card place-card" id = {id} onMouseOver={handleMouseOver}>
       <div className= {isPremiumClassName}>
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -68,7 +50,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">{title}</Link>
+          <Link to="/">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

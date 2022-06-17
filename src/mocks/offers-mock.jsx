@@ -27,7 +27,7 @@ const offers = [
       "zoom": 8
     },
     "maxAdults": 4,
-    "previewImage": `img/1.png`,
+    "previewImage": `img/apartment-01.jpg`,
     "price": 120,
     "rating": 4.8,
     "title": `Beautiful & luxurious studio at great location`,
@@ -62,7 +62,7 @@ const offers = [
       "zoom": 8
     },
     "maxAdults": 4,
-    "previewImage": `img/1.png`,
+    "previewImage": `img/apartment-03.jpg`,
     "price": 120,
     "rating": 3.2,
     "title": `at great location`,
@@ -96,7 +96,7 @@ const offers = [
       "zoom": 8
     },
     "maxAdults": 4,
-    "previewImage": `img/1.png`,
+    "previewImage": `img/apartment-02.jpg`,
     "price": 120,
     "rating": 2.1,
     "title": `luxurious studio at great location`,
@@ -130,7 +130,7 @@ const offers = [
       "zoom": 8
     },
     "maxAdults": 4,
-    "previewImage": `img/1.png`,
+    "previewImage": `img/apartment-01.jpg`,
     "price": 120,
     "rating": 1.4,
     "title": `Beautiful`,
