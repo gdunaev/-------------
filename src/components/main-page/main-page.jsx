@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
+import Map from "../map/map";
 
 const MainPage = (props) => {
 
@@ -109,7 +110,7 @@ const MainPage = (props) => {
               <OffersList offers = {offers}/>
 
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <Map />
               </div>
             </div>
           </div>
