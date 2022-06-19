@@ -4,17 +4,12 @@ import OfferCard from '../offer-card/offer-card';
 import {offersPropTypes} from "../../prop-types-site";
 
 const OffersList = (props) => {
-  // console.log(`22`, props);
   const {offers} = props;
 
   const handleMouseOver = (offer) => {
     setActiveOffer(offer);
-    // console.log('11', offer)
   };
-
   const [activeOffer, setActiveOffer] = useState(0);
-
-  // console.log('11', activeOffer)
 
   return (
     <>

@@ -6,7 +6,7 @@ import FavoritesList from '../favorites-list/favorites-list';
 
 const getFavorites = (offers) => {
 
-  const offersFavorite =  offers.filter((offer) => offer.isFavorite);
+  const offersFavorite = offers.filter((offer) => offer.isFavorite);
 
   const cities = new Set(offersFavorite.map((offer) => offer.city.name));
   // cities = Array.from(cities);
@@ -23,25 +23,12 @@ const getFavorites = (offers) => {
   return favorites;
 
 };
-// const getCities = (offers) => {
-
-// };
-
 
 
 const FavoritesPage = (props) => {
 
-  console.log(`33`, props);
-
   const {offers} = props;
   const offersFavorite = getFavorites(offers);
-  // const cities = getCities(offers);
-  // console.log(offersFavorites)
-
-  // {cities.map((city) => (
-  //   <Favorites key={`${city}-${id}`} offer={offer} />
-  // ))}
-  //       <Favorites offers={offersFavorites} />
 
   return (
     <>

@@ -69,7 +69,7 @@ const offers = [
     "type": `apartment`
   },
   {
-    "bedrooms": 3,
+    "bedrooms": 4,
     "city": {
       "location": {
         "latitude": 52.370216,
@@ -95,9 +95,9 @@ const offers = [
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "maxAdults": 4,
+    "maxAdults": 2,
     "previewImage": `img/apartment-02.jpg`,
-    "price": 120,
+    "price": 122,
     "rating": 2.1,
     "title": `luxurious studio at great location`,
     "type": `apartment`

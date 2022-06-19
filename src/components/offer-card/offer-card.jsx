@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
 import {getRating} from '../../const';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 
 const OfferCard = (props) => {
@@ -50,7 +48,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/">{title}</Link>
+          <Link to={`offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

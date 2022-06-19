@@ -1,16 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {offerPropTypes} from "../../prop-types-site";
 import {getRating} from '../../const';
+import {useParams} from "react-router-dom";
+import {offers} from "../../mocks/offers-mock";
 
 
-const Offer = (props) => {
+const Offer = () => {
 
-  const {offer, test} = props;
+  const {id} = useParams();
+  const offer = offers.filter((value) => value.id === Number(id));
 
-  // console.log('44', props)
-
-  const {price, title, type, rating} = offer;
+  const {isPremium, price, maxAdults, bedrooms, title, type, rating} = offer[0];
 
   const ratingStyle = getRating(rating);
 
@@ -122,12 +122,12 @@ const Offer = (props) => {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                <div className="property__mark">
+                {isPremium && (<div className="property__mark">
                   <span>Premium</span>
-                </div>
+                </div>)}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    Beautiful &amp; luxurious studio at great location
+                    {title}
                   </h1>
                   <button
                     className="property__bookmark-button button"
@@ -149,22 +149,22 @@ const Offer = (props) => {
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    4.8
+                    {rating}
                   </span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    Apartment
+                    {type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    3 Bedrooms
+                    {bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max 4 adults
+                    Max {maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
-                  <b className="property__price-value">&euro;120</b>
+                  <b className="property__price-value">&euro;{price}</b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
@@ -232,7 +232,7 @@ const Offer = (props) => {
                       <div className="reviews__info">
                         <div className="reviews__rating rating">
                           <div className="reviews__stars rating__stars">
-                            <span style={ratingStyle}></span>
+                            <span style={{width: `80%`}}></span>
                             <span className="visually-hidden">Rating</span>
                           </div>
                         </div>
@@ -365,9 +365,9 @@ const Offer = (props) => {
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
-                        To submit review please make sure to set{" "}
+                        To submit review please make sure to set{` `}
                         <span className="reviews__star">rating</span> and
-                        describe your stay with at least{" "}
+                        describe your stay with at least{` `}
                         <b className="reviews__text-amount">50 characters</b>.
                       </p>
                       <button
@@ -540,7 +540,7 @@ const Offer = (props) => {
 };
 
 
-Offer.propTypes = {...offerPropTypes};
+// Offer.propTypes = {...offerPropTypes};
 
 
 export default Offer;
