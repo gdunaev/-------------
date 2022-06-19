@@ -2,9 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {AppRoute} from '../../const';
 
-const LoginPage = (props) => {
-
-  console.log('11', props)
+const LoginPage = () => {
 
   return (
     <>

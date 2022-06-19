@@ -9,15 +9,14 @@ const getFavorites = (offers) => {
   const offersFavorite = offers.filter((offer) => offer.isFavorite);
 
   const cities = new Set(offersFavorite.map((offer) => offer.city.name));
-  // cities = Array.from(cities);
+
   const favorites = [];
   for (const city of cities) {
-    // console.log(city)
     favorites.push(
-      {
-        city,
-        offers: offersFavorite.filter((offer) => offer.city.name === city),
-      }
+        {
+          city,
+          offers: offersFavorite.filter((offer) => offer.city.name === city),
+        }
     );
   }
   return favorites;
@@ -32,7 +31,7 @@ const FavoritesPage = (props) => {
 
   return (
     <>
-      <div style={{ display: `none` }}>
+      <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path

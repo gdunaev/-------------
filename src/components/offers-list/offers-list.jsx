@@ -9,7 +9,7 @@ const OffersList = (props) => {
   const handleMouseOver = (offer) => {
     setActiveOffer(offer);
   };
-  const [activeOffer, setActiveOffer] = useState(0);
+  const [setActiveOffer] = useState(0);
 
   return (
     <>
