@@ -9,8 +9,17 @@ const Offer = () => {
 
   const {id} = useParams();
   const offer = offers.filter((value) => value.id === Number(id));
-
   const {isPremium, price, maxAdults, bedrooms, title, type, rating} = offer[0];
+
+  const [userForm, setUserForm] = React.useState({
+    rating: ``,
+    review: ``,
+  });
+
+  const handleFieldChange = (evt) => {
+    const {name, value} = evt.target;
+    setUserForm({...userForm, [name]: value});
+  };
 
   const ratingStyle = getRating(rating);
 
@@ -251,13 +260,15 @@ const Offer = () => {
                     <label className="reviews__label form__label" htmlFor="review">
                       Your review
                     </label>
-                    <div className="reviews__rating-form form__rating">
+                    <div className="reviews__rating-form form__rating" >
                       <input
                         className="form__rating-input visually-hidden"
                         name="rating"
                         value="5"
                         id="5-stars"
                         type="radio"
+
+                        onClick={handleFieldChange}
                       />
                       <label
                         htmlFor="5-stars"
@@ -279,6 +290,8 @@ const Offer = () => {
                         value="4"
                         id="4-stars"
                         type="radio"
+
+                        onClick={handleFieldChange}
                       />
                       <label
                         htmlFor="4-stars"
@@ -300,6 +313,8 @@ const Offer = () => {
                         value="3"
                         id="3-stars"
                         type="radio"
+
+                        onClick={handleFieldChange}
                       />
                       <label
                         htmlFor="3-stars"
@@ -321,6 +336,8 @@ const Offer = () => {
                         value="2"
                         id="2-stars"
                         type="radio"
+
+                        onClick={handleFieldChange}
                       />
                       <label
                         htmlFor="2-stars"
@@ -342,6 +359,8 @@ const Offer = () => {
                         value="1"
                         id="1-star"
                         type="radio"
+
+                        onClick={handleFieldChange}
                       />
                       <label
                         htmlFor="1-star"
@@ -352,8 +371,10 @@ const Offer = () => {
                           className="form__star-image"
                           width="37"
                           height="33"
+                          name="star"
                         >
-                          <use xlinkHref="#icon-star"></use>
+                          <use xlinkHref="#icon-star"
+                          ></use>
                         </svg>
                       </label>
                     </div>
@@ -362,6 +383,9 @@ const Offer = () => {
                       id="review"
                       name="review"
                       placeholder="Tell how was your stay, what you like and what can be improved"
+
+                      onChange={handleFieldChange}
+
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
