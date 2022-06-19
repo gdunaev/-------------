@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {AppRoute} from '../../const';
 
-const Login = () => {
+const LoginPage = () => {
 
   return (
     <>
@@ -64,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

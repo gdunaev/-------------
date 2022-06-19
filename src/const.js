@@ -1,8 +1,17 @@
+
+const PercentRating = 20;
+
 const AppRoute = {
   MAIN: `/`,
-  OFFER: `/card`,
+  OFFER: `/offer/:id`,
   FAVORITES: `/favorites`,
   LOGIN: `/login`,
 };
 
-export {AppRoute};
+const getRating = (rating) => {
+  return {
+    width: `${Math.round(rating) * PercentRating}%`,
+  };
+};
+
+export {AppRoute, getRating};

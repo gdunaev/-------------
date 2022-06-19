@@ -1,37 +1,35 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Card from "../card/card";
+import {offersPropTypes} from "../../prop-types-site";
+import Offer from "../offer/offer";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
-import Favorites from "../favorites/favorites";
-import Login from "../login/login";
+import FavoritesPage from "../favorites-page/favorites-page";
 import {AppRoute} from "../../const";
-import NotFoundScreen from "../not-found-screen/not-found-screen";
+import NotFoundPage from "../not-found-page/not-found-page";
+import LoginPage from "../login-page/login-page";
 
 function App(props) {
-  const {quantityOffers} = props;
+  const {offers} = props;
+  // console.log(offers[0])
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.FAVORITES} render={() => <Favorites />} />
-        <Route exact path={AppRoute.OFFER}>
-          <Card />
-        </Route>
-        <Route exact path={AppRoute.LOGIN} component={Login} />
+        <Route exact path={AppRoute.FAVORITES} render={() => <FavoritesPage offers={offers}/>} />
+        <Route exact path={AppRoute.OFFER} render={() => <Offer/>} />
+
+        <Route exact path={AppRoute.LOGIN} render={() => <LoginPage/>} />
         <Route exact path={AppRoute.MAIN}>
-          <MainPage quantityOffers={quantityOffers} />
+          <MainPage offers={offers} />
         </Route>
         <Route>
-          <NotFoundScreen />
+          <NotFoundPage />
         </Route>
       </Switch>
     </BrowserRouter>
   );
 }
 
-App.propTypes = {
-  quantityOffers: PropTypes.number.isRequired,
-};
+App.propTypes = {...offersPropTypes};
 
 export default App;
 

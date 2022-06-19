@@ -1,11 +1,33 @@
-import React from "react";
+import React from 'react';
 import {Link} from "react-router-dom";
+import {AppRoute} from "../../const";
 import {offersPropTypes} from "../../prop-types-site";
-import OffersList from "../offers-list/offers-list";
+import FavoritesList from '../favorites-list/favorites-list';
 
-const MainPage = (props) => {
+const getFavorites = (offers) => {
+
+  const offersFavorite = offers.filter((offer) => offer.isFavorite);
+
+  const cities = new Set(offersFavorite.map((offer) => offer.city.name));
+
+  const favorites = [];
+  for (const city of cities) {
+    favorites.push(
+        {
+          city,
+          offers: offersFavorite.filter((offer) => offer.city.name === city),
+        }
+    );
+  }
+  return favorites;
+
+};
+
+
+const FavoritesPage = (props) => {
 
   const {offers} = props;
+  const offersFavorite = getFavorites(offers);
 
   return (
     <>
@@ -31,12 +53,12 @@ const MainPage = (props) => {
         </svg>
       </div>
 
-      <div className="page page--gray page--main">
+      <div className="page">
         <header className="header">
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <Link className="header__logo-link header__logo-link--active" to = '#'>
+                <Link className="header__logo-link" to={AppRoute.MAIN}>
                   <img
                     className="header__logo"
                     src="img/logo.svg"
@@ -65,62 +87,37 @@ const MainPage = (props) => {
           </div>
         </header>
 
-        <main className="page__main page__main--index">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to="#">
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
+        <main className="page__main page__main--favorites">
+          <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+
+                {offersFavorite.map((favorite, id) => (
+                  <FavoritesList key={`${favorite.city}-${id}`} offers={favorite.offers} city = {favorite.city} />
+                ))}
+
               </ul>
             </section>
           </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-
-              <OffersList offers = {offers}/>
-
-              <div className="cities__right-section">
-                <section className="cities__map map"></section>
-              </div>
-            </div>
-          </div>
         </main>
+        <footer className="footer container">
+          <Link className="footer__logo-link" to="#">
+            <img
+              className="footer__logo"
+              src="img/logo.svg"
+              alt="6 cities logo"
+              width="64"
+              height="33"
+            />
+          </Link>
+        </footer>
       </div>
     </>
   );
 };
 
+FavoritesPage.propTypes = offersPropTypes;
 
-MainPage.propTypes = offersPropTypes;
+export default FavoritesPage;
 
-
-export default MainPage;
