@@ -63,7 +63,7 @@ const offers = [
     },
     "maxAdults": 4,
     "previewImage": `img/apartment-03.jpg`,
-    "price": 120,
+    "price": 121,
     "rating": 3.2,
     "title": `at great location`,
     "type": `apartment`
@@ -131,7 +131,7 @@ const offers = [
     },
     "maxAdults": 4,
     "previewImage": `img/apartment-01.jpg`,
-    "price": 120,
+    "price": 123,
     "rating": 1.4,
     "title": `Beautiful`,
     "type": `apartment`

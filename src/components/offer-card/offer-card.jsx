@@ -11,8 +11,6 @@ const OfferCard = (props) => {
   const {id, price, isFavorite, isPremium, title, type, rating, previewImage} = offer;
 
   const ratingStyle = getRating(rating);
-  const isFavoriteClassName = isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
-  const isPremiumClassName = isPremium ? `place-card__mark` : `place-card__mark visually-hidden`;
 
   const handleMouseOver = () => {
     onMouseOver(offer);
@@ -20,7 +18,7 @@ const OfferCard = (props) => {
 
   return (
     <article className="cities__place-card place-card" id = {id} onMouseOver={handleMouseOver}>
-      <div className= {isPremiumClassName}>
+      <div className= {`place-card__mark ${!isPremium && `visually-hidden`}`}>
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -34,7 +32,7 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className= {isFavoriteClassName} type="button">
+          <button className= {`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
