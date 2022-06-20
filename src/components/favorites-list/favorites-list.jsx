@@ -33,7 +33,8 @@ const FavoritesList = (props) => {
 };
 
 
-FavoritesList.propTypes = {...offersPropTypes,
+FavoritesList.propTypes = {
+  offers: offersPropTypes,
   city: PropTypes.string.isRequired,
 };
 

@@ -564,7 +564,4 @@ const Offer = () => {
 };
 
 
-// Offer.propTypes = {...offerPropTypes};
-
-
 export default Offer;

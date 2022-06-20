@@ -54,7 +54,11 @@ const OfferCard = (props) => {
   );
 };
 
-OfferCard.propTypes = {...offerPropTypes, setStateActiveOffer: PropTypes.func};
+OfferCard.propTypes = {
+  offer: offerPropTypes,
+  setStateActiveOffer: PropTypes.func,
+  onMouseOver: PropTypes.func
+};
 
 
 export default OfferCard;

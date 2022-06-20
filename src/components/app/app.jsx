@@ -16,7 +16,6 @@ function App(props) {
       <Switch>
         <Route exact path={AppRoute.FAVORITES} render={() => <FavoritesPage offers={offers}/>} />
         <Route exact path={AppRoute.OFFER} render={() => <Offer/>} />
-
         <Route exact path={AppRoute.LOGIN} render={() => <LoginPage/>} />
         <Route exact path={AppRoute.MAIN}>
           <MainPage offers={offers} />
@@ -29,7 +28,9 @@ function App(props) {
   );
 }
 
-App.propTypes = {...offersPropTypes};
+App.propTypes = {
+  offers: offersPropTypes,
+};
 
 export default App;
 

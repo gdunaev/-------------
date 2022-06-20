@@ -6,10 +6,11 @@ import {offersPropTypes} from "../../prop-types-site";
 const OffersList = (props) => {
   const {offers} = props;
 
+  const [, setActiveOffer] = useState(0);
+
   const handleMouseOver = (offer) => {
     setActiveOffer(offer);
   };
-  const [setActiveOffer] = useState(0);
 
   return (
     <>
@@ -50,7 +51,9 @@ const OffersList = (props) => {
 };
 
 
-OffersList.propTypes = offersPropTypes;
+OffersList.propTypes = {
+  offers: offersPropTypes,
+};
 
 
 export default OffersList;

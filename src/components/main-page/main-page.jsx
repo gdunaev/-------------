@@ -2,6 +2,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
+import Map from "../map/map";
+
+const city = {
+  lat: 52.38333,
+  lng: 4.9,
+  zoom: 11,
+};
 
 const MainPage = (props) => {
 
@@ -109,7 +116,9 @@ const MainPage = (props) => {
               <OffersList offers = {offers}/>
 
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+
+                <Map city={city} offers={offers}/>
+
               </div>
             </div>
           </div>
@@ -120,7 +129,9 @@ const MainPage = (props) => {
 };
 
 
-MainPage.propTypes = offersPropTypes;
+MainPage.propTypes = {
+  offers: offersPropTypes,
+};
 
 
 export default MainPage;
