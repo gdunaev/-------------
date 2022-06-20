@@ -1,10 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
-
+import {offersPropTypes} from "../../prop-types-site";
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points}) => {
+const Map = (props) => {
+  const {city, offers} = props;
+
   const mapRef = useRef();
 
   useEffect(() => {
@@ -16,27 +18,29 @@ const Map = ({city, points}) => {
       zoom: city.zoom
     });
 
+
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    offers.forEach((offer) => {
+      const location = offer.location;
       const customIcon = leaflet.icon({
         iconUrl: `./img/pin.svg`,
-        iconSize: [27, 39]
+        iconSize: [30, 30]
       });
 
       leaflet.marker({
-        lat: point.lat,
-        lng: point.lng
+        lat: location.latitude,
+        lng: location.longitude
       },
       {
         icon: customIcon
       })
       .addTo(mapRef.current)
-      .bindPopup(point.title);
+      .bindPopup(offer.id);
 
       return () => {
         mapRef.current.remove();
@@ -45,7 +49,7 @@ const Map = ({city, points}) => {
   }, []);
 
   return (
-    <div id="map" style={{height: `500px`}} ref={mapRef}></div>
+    <div id="map" style={{width: `100%`}} ref={mapRef}></div>
   );
 };
 
@@ -55,11 +59,8 @@ Map.propTypes = {
     lng: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,
   }),
-  points: PropTypes.arrayOf(PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }))
+
+  offers: offersPropTypes
 };
 
 export default Map;

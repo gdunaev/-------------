@@ -59,7 +59,9 @@ const Favorite = (props) => {
 };
 
 
-Favorite.propTypes = offerPropTypes;
+Favorite.propTypes = {
+  offer: offerPropTypes,
+};
 
 
 export default Favorite;
