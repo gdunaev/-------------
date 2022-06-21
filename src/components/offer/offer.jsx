@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {getRating} from '../../const';
 import {useParams} from "react-router-dom";
 import {offers} from "../../mocks/offers-mock";
+import ReviewsList from "../reviews-list/reviews-list";
 
 
 const Offer = () => {
@@ -10,6 +11,8 @@ const Offer = () => {
   const {id} = useParams();
   const offer = offers.filter((value) => value.id === Number(id));
   const {isPremium, price, maxAdults, bedrooms, title, type, rating} = offer[0];
+
+  const reviews = [];
 
   const [userForm, setUserForm] = React.useState({
     rating: ``,
@@ -25,7 +28,7 @@ const Offer = () => {
 
   return (
     <>
-      <div style={{display: `none`}}>
+      <div style={{ display: `none` }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -131,13 +134,13 @@ const Offer = () => {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {isPremium && (<div className="property__mark">
-                  <span>Premium</span>
-                </div>)}
+                {isPremium && (
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div>
+                )}
                 <div className="property__name-wrapper">
-                  <h1 className="property__name">
-                    {title}
-                  </h1>
+                  <h1 className="property__name">{title}</h1>
                   <button
                     className="property__bookmark-button button"
                     type="button"
@@ -220,54 +223,29 @@ const Offer = () => {
                     </p>
                   </div>
                 </div>
+
+
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
-                  <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img
-                            className="reviews__avatar user__avatar"
-                            src="img/avatar-max.jpg"
-                            width="54"
-                            height="54"
-                            alt="Reviews avatar"
-                          />
-                        </div>
-                        <span className="reviews__user-name">Max</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: `80%`}}></span>
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a
-                          river by the unique lightness of Amsterdam. The
-                          building is green and from 18th century.
-                        </p>
-                        <time className="reviews__time" dateTime="2019-04-24">
-                          April 2019
-                        </time>
-                      </div>
-                    </li>
-                  </ul>
+
+                  <ReviewsList reviews={reviews} />
+
                   <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">
+                    <label
+                      className="reviews__label form__label"
+                      htmlFor="review"
+                    >
                       Your review
                     </label>
-                    <div className="reviews__rating-form form__rating" >
+                    <div className="reviews__rating-form form__rating">
                       <input
                         className="form__rating-input visually-hidden"
                         name="rating"
                         value="5"
                         id="5-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -290,7 +268,6 @@ const Offer = () => {
                         value="4"
                         id="4-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -313,7 +290,6 @@ const Offer = () => {
                         value="3"
                         id="3-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -336,7 +312,6 @@ const Offer = () => {
                         value="2"
                         id="2-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -359,7 +334,6 @@ const Offer = () => {
                         value="1"
                         id="1-star"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -373,8 +347,7 @@ const Offer = () => {
                           height="33"
                           name="star"
                         >
-                          <use xlinkHref="#icon-star"
-                          ></use>
+                          <use xlinkHref="#icon-star"></use>
                         </svg>
                       </label>
                     </div>
@@ -383,9 +356,7 @@ const Offer = () => {
                       id="review"
                       name="review"
                       placeholder="Tell how was your stay, what you like and what can be improved"
-
                       onChange={handleFieldChange}
-
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
@@ -404,6 +375,7 @@ const Offer = () => {
                     </div>
                   </form>
                 </section>
+
               </div>
             </div>
             <section className="property__map map"></section>
