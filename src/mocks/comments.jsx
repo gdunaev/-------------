@@ -1,37 +1,37 @@
 const comments = [
   {
-    "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
-    "date": `2019-05-08T14:13:56.569Z`,
+    "comment": `A quiet cozy and picturesque.`,
+    "date": `2019-06-10T14:13:56.569Z`,
     "id": 2,
     "rating": 4,
     "user": {
-      "avatar_url": `img/1.png`,
+      "avatarUrl": `img/avatar-max.jpg`,
       "id": 4,
-      "is_pro": false,
+      "isPro": false,
       "name": `Max`
     }
   },
   {
-    "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    "comment": `A quiet cozy and picturesque that hides behind a a river.`,
     "date": `2019-05-08T14:13:56.569Z`,
     "id": 2,
     "rating": 3,
     "user": {
-      "avatar_url": `img/2.png`,
+      "avatarUrl": `img/avatar-max.jpg`,
       "id": 3,
-      "is_pro": false,
+      "isPro": false,
       "name": `Elen`
     }
   },
   {
     "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
-    "date": `2019-05-08T14:13:56.569Z`,
+    "date": `2019-05-07T14:13:56.569Z`,
     "id": 2,
     "rating": 2,
     "user": {
-      "avatar_url": `img/3.png`,
+      "avatarUrl": `img/avatar-max.jpg`,
       "id": 2,
-      "is_pro": false,
+      "isPro": false,
       "name": `Ivan`
     }
   },
@@ -41,9 +41,9 @@ const comments = [
     "id": 3,
     "rating": 4,
     "user": {
-      "avatar_url": `img/4.png`,
+      "avatarUrl": `img/avatar-max.jpg`,
       "id": 4,
-      "is_pro": false,
+      "isPro": false,
       "name": `Max`
     }
   }

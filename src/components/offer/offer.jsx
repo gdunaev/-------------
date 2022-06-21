@@ -4,6 +4,7 @@ import {getRating} from '../../const';
 import {useParams} from "react-router-dom";
 import {offers} from "../../mocks/offers-mock";
 import ReviewsList from "../reviews-list/reviews-list";
+import {comments} from "../../mocks/comments";
 
 
 const Offer = () => {
@@ -12,7 +13,8 @@ const Offer = () => {
   const offer = offers.filter((value) => value.id === Number(id));
   const {isPremium, price, maxAdults, bedrooms, title, type, rating} = offer[0];
 
-  const reviews = [];
+  const reviews = comments.filter((value) => value.id === Number(id));
+  const reviewsLength = reviews ? `${reviews.length}` : ``;
 
   const [userForm, setUserForm] = React.useState({
     rating: ``,
@@ -28,7 +30,7 @@ const Offer = () => {
 
   return (
     <>
-      <div style={{ display: `none` }}>
+      <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -227,7 +229,7 @@ const Offer = () => {
 
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">
-                    Reviews &middot; <span className="reviews__amount">1</span>
+                    Reviews &middot; <span className="reviews__amount">{reviewsLength}</span>
                   </h2>
 
                   <ReviewsList reviews={reviews} />
