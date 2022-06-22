@@ -1,15 +1,24 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {getRating} from '../../const';
+import {getRating, cityMap, HousingType} from '../../const';
 import {useParams} from "react-router-dom";
 import {offers} from "../../mocks/offers-mock";
+import ReviewsList from "../reviews-list/reviews-list";
+import {comments} from "../../mocks/comments";
+import OfferCard from "../offer-card/offer-card";
+import Map from "../map/map";
 
+
+const QUANTITY_OTHER_PLACES = 3;
 
 const Offer = () => {
 
   const {id} = useParams();
-  const offer = offers.filter((value) => value.id === Number(id));
-  const {isPremium, price, maxAdults, bedrooms, title, type, rating} = offer[0];
+  const offer = offers.filter((value) => value.id === Number(id))[0];
+  const {isPremium, price, maxAdults, bedrooms, title, type, rating, city} = offer;
+
+  const reviews = comments.filter((value) => value.id === Number(id));
+  const reviewsLength = reviews ? `${reviews.length}` : ``;
 
   const [userForm, setUserForm] = React.useState({
     rating: ``,
@@ -22,6 +31,17 @@ const Offer = () => {
   };
 
   const ratingStyle = getRating(rating);
+
+  // отбираем офферы по городу исключая наш, который отрисовываем
+  const otherOffers = offers.filter((currentOffer) => currentOffer.city.name === city.name && currentOffer !== offer).slice(0, QUANTITY_OTHER_PLACES);
+  const otherOffersMap = otherOffers.slice();
+  otherOffersMap.push(offer);
+
+  // console.log(otherOffersMap)
+
+  const handleMouseOver = () => {
+    // setActiveOffer(offer);
+  };
 
   return (
     <>
@@ -131,13 +151,13 @@ const Offer = () => {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {isPremium && (<div className="property__mark">
-                  <span>Premium</span>
-                </div>)}
+                {isPremium && (
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div>
+                )}
                 <div className="property__name-wrapper">
-                  <h1 className="property__name">
-                    {title}
-                  </h1>
+                  <h1 className="property__name">{title}</h1>
                   <button
                     className="property__bookmark-button button"
                     type="button"
@@ -163,7 +183,7 @@ const Offer = () => {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {HousingType[type.toUpperCase()]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
@@ -220,54 +240,29 @@ const Offer = () => {
                     </p>
                   </div>
                 </div>
+
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">
-                    Reviews &middot; <span className="reviews__amount">1</span>
+                    Reviews &middot;{` `}
+                    <span className="reviews__amount">{reviewsLength}</span>
                   </h2>
-                  <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img
-                            className="reviews__avatar user__avatar"
-                            src="img/avatar-max.jpg"
-                            width="54"
-                            height="54"
-                            alt="Reviews avatar"
-                          />
-                        </div>
-                        <span className="reviews__user-name">Max</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: `80%`}}></span>
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a
-                          river by the unique lightness of Amsterdam. The
-                          building is green and from 18th century.
-                        </p>
-                        <time className="reviews__time" dateTime="2019-04-24">
-                          April 2019
-                        </time>
-                      </div>
-                    </li>
-                  </ul>
+
+                  <ReviewsList reviews={reviews} />
+
                   <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">
+                    <label
+                      className="reviews__label form__label"
+                      htmlFor="review"
+                    >
                       Your review
                     </label>
-                    <div className="reviews__rating-form form__rating" >
+                    <div className="reviews__rating-form form__rating">
                       <input
                         className="form__rating-input visually-hidden"
                         name="rating"
                         value="5"
                         id="5-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -290,7 +285,6 @@ const Offer = () => {
                         value="4"
                         id="4-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -313,7 +307,6 @@ const Offer = () => {
                         value="3"
                         id="3-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -336,7 +329,6 @@ const Offer = () => {
                         value="2"
                         id="2-stars"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -359,7 +351,6 @@ const Offer = () => {
                         value="1"
                         id="1-star"
                         type="radio"
-
                         onClick={handleFieldChange}
                       />
                       <label
@@ -373,8 +364,7 @@ const Offer = () => {
                           height="33"
                           name="star"
                         >
-                          <use xlinkHref="#icon-star"
-                          ></use>
+                          <use xlinkHref="#icon-star"></use>
                         </svg>
                       </label>
                     </div>
@@ -383,9 +373,7 @@ const Offer = () => {
                       id="review"
                       name="review"
                       placeholder="Tell how was your stay, what you like and what can be improved"
-
                       onChange={handleFieldChange}
-
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
@@ -406,7 +394,11 @@ const Offer = () => {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+
+              <Map cityMap={cityMap} offers={otherOffersMap}/>
+
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
@@ -414,146 +406,16 @@ const Offer = () => {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to="#">
-                      <img
-                        className="place-card__image"
-                        src="img/room.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button place-card__bookmark-button--active button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={ratingStyle}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to="#">Wood and stone place</Link>
-                    </h2>
-                    <p className="place-card__type">Private room</p>
-                  </div>
-                </article>
 
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to="#">
-                      <img
-                        className="place-card__image"
-                        src="img/apartment-02.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;132</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={ratingStyle}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to="#">Canal View Prinsengracht</Link>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
+                {otherOffers.map((currentOffer) => (
+                  <OfferCard
+                    key={currentOffer.id}
+                    offer={currentOffer}
+                    otherOffer={true}
+                    onMouseOver = {handleMouseOver}
+                  />
+                ))}
 
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to="#">
-                      <img
-                        className="place-card__image"
-                        src="img/apartment-03.jpg"
-                        width="260"
-                        height="200"
-                        alt="Place image"
-                      />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;180</b>
-                        <span className="place-card__price-text">
-                          &#47;&nbsp;night
-                        </span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          width="18"
-                          height="19"
-                        >
-                          <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={ratingStyle}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <Link to="#">Nice, cozy, warm big bed apartment</Link>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
               </div>
             </section>
           </div>
