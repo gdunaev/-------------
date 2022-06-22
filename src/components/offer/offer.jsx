@@ -1,11 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {getRating} from '../../const';
+import {getRating, cityMap, HousingType} from '../../const';
 import {useParams} from "react-router-dom";
 import {offers} from "../../mocks/offers-mock";
 import ReviewsList from "../reviews-list/reviews-list";
 import {comments} from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
+import Map from "../map/map";
+
 
 const QUANTITY_OTHER_PLACES = 3;
 
@@ -14,7 +16,6 @@ const Offer = () => {
   const {id} = useParams();
   const offer = offers.filter((value) => value.id === Number(id))[0];
   const {isPremium, price, maxAdults, bedrooms, title, type, rating, city} = offer;
-  // const {name} = city;
 
   const reviews = comments.filter((value) => value.id === Number(id));
   const reviewsLength = reviews ? `${reviews.length}` : ``;
@@ -33,6 +34,10 @@ const Offer = () => {
 
   // отбираем офферы по городу исключая наш, который отрисовываем
   const otherOffers = offers.filter((currentOffer) => currentOffer.city.name === city.name && currentOffer !== offer).slice(0, QUANTITY_OTHER_PLACES);
+  const otherOffersMap = otherOffers.slice();
+  otherOffersMap.push(offer);
+
+  // console.log(otherOffersMap)
 
   const handleMouseOver = () => {
     // setActiveOffer(offer);
@@ -178,7 +183,7 @@ const Offer = () => {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {HousingType[type.toUpperCase()]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
@@ -389,7 +394,11 @@ const Offer = () => {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+
+              <Map cityMap={cityMap} offers={otherOffersMap}/>
+
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">

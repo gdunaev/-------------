@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
-import {getRating} from '../../const';
+import {getRating, HousingType} from '../../const';
 import PropTypes from 'prop-types';
 
 
@@ -24,10 +24,10 @@ const OfferCard = (props) => {
       <div className={`${otherOffer ? `near-places__image-wrapper` : `cities__image-wrapper`} ${`place-card__image-wrapper`}`}>
         <Link to="#">
           <img className="place-card__image"
-          src={previewImage}
-          width="260"
-          height="200"
-          alt="Place image"/>
+            src={previewImage}
+            width="260"
+            height="200"
+            alt="Place image"/>
         </Link>
       </div>
 
@@ -42,7 +42,7 @@ const OfferCard = (props) => {
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">{otherOffer ? `In` : `To` ` bookmarks`}</span>
+            <span className="visually-hidden">`${otherOffer ? `In` : `To1`} ${`bookmarks`}</span>
           </button>
         </div>
 
@@ -56,7 +56,7 @@ const OfferCard = (props) => {
         <h2 className="place-card__name">
           <Link to={`offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{HousingType[type.toUpperCase()]}</p>
       </div>
     </article>
   );
@@ -72,49 +72,3 @@ OfferCard.propTypes = {
 
 export default OfferCard;
 
-
-{ /* <article className="near-places__card place-card">
-  <div className="near-places__image-wrapper place-card__image-wrapper">
-    <Link to="#">
-      <img
-        className="place-card__image"
-        src="img/room.jpg"
-        width="260"
-        height="200"
-        alt="Place image"
-      />
-    </Link>
-  </div>
-
-
-  <div className="place-card__info">
-    <div className="place-card__price-wrapper">
-
-    <div className="place-card__price">
-        <b className="place-card__price-value">&euro;80</b>
-        <span className="place-card__price-text">&#47;&nbsp;night</span>
-      </div>
-      <button
-        className="place-card__bookmark-button place-card__bookmark-button--active button"
-        type="button"
-      >
-        <svg className="place-card__bookmark-icon" width="18" height="19">
-          <use xlinkHref="#icon-bookmark"></use>
-        </svg>
-        <span className="visually-hidden">In bookmarks</span>
-      </button>
-    </div>
-
-    <div className="place-card__rating rating">
-      <div className="place-card__stars rating__stars">
-        <span style={ratingStyle}></span>
-        <span className="visually-hidden">Rating</span>
-      </div>
-    </div>
-
-    <h2 className="place-card__name">
-      <Link to="#">Wood and stone place</Link>
-    </h2>
-    <p className="place-card__type">Private room</p>
-  </div>
-</article>; */ }

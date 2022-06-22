@@ -3,12 +3,9 @@ import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
-
-const city = {
-  lat: 52.38333,
-  lng: 4.9,
-  zoom: 11,
-};
+import {cityMap} from "../../const";
+import FilterCities from "../filter-cities/filter-cities";
+import {Cities} from "../../const";
 
 const MainPage = (props) => {
 
@@ -43,7 +40,10 @@ const MainPage = (props) => {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <Link className="header__logo-link header__logo-link--active" to = '#'>
+                <Link
+                  className="header__logo-link header__logo-link--active"
+                  to="#"
+                >
                   <img
                     className="header__logo"
                     src="img/logo.svg"
@@ -77,48 +77,20 @@ const MainPage = (props) => {
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to="#">
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="#">
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
+
+                {Cities.map((element) => (
+                  <FilterCities key={Object.values(element)[1]} city={Object.values(element)[0]} />
+                ))}
+
               </ul>
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
-
-              <OffersList offers = {offers}/>
+              <OffersList offers={offers} />
 
               <div className="cities__right-section">
-
-                <Map city={city} offers={offers}/>
-
+                <Map cityMap={cityMap} offers={offers} main={true} />
               </div>
             </div>
           </div>

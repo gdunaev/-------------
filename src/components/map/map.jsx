@@ -5,17 +5,21 @@ import {offersPropTypes} from "../../prop-types-site";
 import "leaflet/dist/leaflet.css";
 
 const Map = (props) => {
-  const {city, offers} = props;
+  const {cityMap, offers, main} = props;
+  const {location} = cityMap;
+  const {latitude, longitude, zoom} = location;
+  // console.log(city, offers)
 
   const mapRef = useRef();
 
   useEffect(() => {
+
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.lat,
-        lng: city.lng
+        lat: latitude,
+        lng: longitude
       },
-      zoom: city.zoom
+      zoom
     });
 
 
@@ -26,15 +30,15 @@ const Map = (props) => {
       .addTo(mapRef.current);
 
     offers.forEach((offer) => {
-      const location = offer.location;
+      const locationOffer = offer.location;
       const customIcon = leaflet.icon({
         iconUrl: `./img/pin.svg`,
         iconSize: [30, 30]
       });
 
       leaflet.marker({
-        lat: location.latitude,
-        lng: location.longitude
+        lat: locationOffer.latitude,
+        lng: locationOffer.longitude
       },
       {
         icon: customIcon
@@ -48,19 +52,27 @@ const Map = (props) => {
     });
   }, []);
 
+  const getStyleMap = () => {
+    return main ? {width: `100%`} : {width: `1144px`, height: `579px`, margin: `auto`};
+  };
+
   return (
-    <div id="map" style={{width: `100%`}} ref={mapRef}></div>
+    <div id="map" style={getStyleMap()} ref={mapRef}></div>
   );
 };
 
 Map.propTypes = {
-  city: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
+  cityMap: PropTypes.shape({
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    name: PropTypes.string.isRequired
   }),
 
-  offers: offersPropTypes
+  offers: offersPropTypes,
+  main: PropTypes.bool
 };
 
 export default Map;
