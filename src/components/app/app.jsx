@@ -8,6 +8,7 @@ import {AppRoute} from "../../const";
 import NotFoundPage from "../not-found-page/not-found-page";
 import LoginPage from "../login-page/login-page";
 
+
 function App(props) {
   const {offers} = props;
   // console.log(offers[0])

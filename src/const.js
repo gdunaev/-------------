@@ -24,12 +24,12 @@ const cityMap = {
 };
 
 const Cities = [
-  {PARIS: `Paris`, id: 1},
-  {COLOGNE: `Cologne`, id: 2},
-  {BRUSSELS: `Brussels`, id: 3},
-  {AMSTERDAM: `Amsterdam`, id: 4},
-  {HAMBURG: `Hamburg`, id: 5},
-  {DUSSELDORF: `Dusseldorf`, id: 6},
+  {name: `Paris`, id: 1},
+  {name: `Cologne`, id: 2},
+  {name: `Brussels`, id: 3},
+  {name: `Amsterdam`, id: 4},
+  {name: `Hamburg`, id: 5},
+  {name: `Dusseldorf`, id: 6},
 ];
 
 const HousingType = {

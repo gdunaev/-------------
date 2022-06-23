@@ -4,12 +4,16 @@ import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
 import {cityMap} from "../../const";
-import FilterCities from "../filter-cities/filter-cities";
+import CitiesList from "../cities-list/cities-list";
 import {Cities} from "../../const";
 
 const MainPage = (props) => {
 
   const {offers} = props;
+
+  const onUserAnswer = () => {
+    //TEST
+  };
 
   return (
     <>
@@ -79,7 +83,7 @@ const MainPage = (props) => {
               <ul className="locations__list tabs__list">
 
                 {Cities.map((element) => (
-                  <FilterCities key={Object.values(element)[1]} city={Object.values(element)[0]} />
+                  <CitiesList key={element.id} city={element.name} onClick={onUserAnswer}/>
                 ))}
 
               </ul>

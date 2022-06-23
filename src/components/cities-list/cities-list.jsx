@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const FilterCities = (props) => {
+const CitiesList = (props) => {
   const {city} = props;
 
   return (
@@ -14,8 +14,8 @@ const FilterCities = (props) => {
   );
 };
 
-FilterCities.propTypes = {
+CitiesList.propTypes = {
   city: PropTypes.string.isRequired,
 };
 
-export default FilterCities;
+export default CitiesList;
