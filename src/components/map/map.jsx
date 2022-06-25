@@ -3,17 +3,22 @@ import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 import {offersPropTypes} from "../../prop-types-site";
 import "leaflet/dist/leaflet.css";
+import {connect} from 'react-redux';
+import {Cities} from '../../const';
 
 const Map = (props) => {
-  const {cityMap, offers, main} = props;
-  const {location} = cityMap;
-  const {latitude, longitude, zoom} = location;
-   console.log(cityMap, offers)
+  const {city, offers, main} = props;
+  // console.log('55', Cities)
+  const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
+
+
+  //  console.log('44', longitude, offers)
 
   const mapRef = useRef();
 
   useEffect(() => {
 
+    const {latitude, longitude, zoom} = cityLocation;
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat: latitude,
@@ -46,11 +51,14 @@ const Map = (props) => {
       .addTo(mapRef.current)
       .bindPopup(offer.id);
 
-      return () => {
-        mapRef.current.remove();
-      };
     });
-  }, []);
+
+
+    return () => {
+      // console.log('11', mapRef)
+      mapRef.current.remove();
+    };
+  }, [city, offers]);
 
   const getStyleMap = () => {
     return main ? {width: `100%`} : {width: `1144px`, height: `579px`, margin: `auto`};
@@ -62,17 +70,23 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
-  cityMap: PropTypes.shape({
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-    name: PropTypes.string.isRequired
-  }),
-
+  // cityMap: PropTypes.shape({
+  //   location: PropTypes.shape({
+  //     latitude: PropTypes.number.isRequired,
+  //     longitude: PropTypes.number.isRequired,
+  //     zoom: PropTypes.number.isRequired,
+  //   }),
+  //   name: PropTypes.string.isRequired
+  // }),
+  city: PropTypes.string,
   offers: offersPropTypes,
   main: PropTypes.bool
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);

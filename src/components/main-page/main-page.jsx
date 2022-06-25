@@ -14,7 +14,7 @@ const MainPage = (props) => {
 
   const {offers, handleCityChange, city} = props;
 
-  console.log('33', )
+  // console.log('33', )
   // const activ = true;
 
   return (
@@ -96,7 +96,7 @@ const MainPage = (props) => {
               <OffersList />
 
               <div className="cities__right-section">
-                <Map cityMap={cityMap} offers={offers} main={true} />
+                <Map main={true} />
               </div>
             </div>
           </div>
@@ -109,8 +109,7 @@ const MainPage = (props) => {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-// mistakes: state.mistakes,
-// questions: state.questions,
+  offers: state.offers,
 });
 
 // при смене города в диспатч передаем название города,
