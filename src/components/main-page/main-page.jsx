@@ -6,14 +6,16 @@ import Map from "../map/map";
 import {cityMap} from "../../const";
 import CitiesList from "../cities-list/cities-list";
 import {Cities} from "../../const";
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
+import PropTypes from "prop-types";
 
 const MainPage = (props) => {
 
-  const {offers} = props;
+  const {offers, handleCityChange, city} = props;
 
-  const onUserAnswer = () => {
-    //TEST
-  };
+  console.log('33', )
+  // const activ = true;
 
   return (
     <>
@@ -83,7 +85,7 @@ const MainPage = (props) => {
               <ul className="locations__list tabs__list">
 
                 {Cities.map((element) => (
-                  <CitiesList key={element.id} city={element.name} onClick={onUserAnswer}/>
+                  <CitiesList key={element.name} city={element.name} offers={offers} onCityClick={handleCityChange} activ={element.name === city}/>
                 ))}
 
               </ul>
@@ -91,7 +93,7 @@ const MainPage = (props) => {
           </div>
           <div className="cities">
             <div className="cities__places-container container">
-              <OffersList offers={offers} />
+              <OffersList />
 
               <div className="cities__right-section">
                 <Map cityMap={cityMap} offers={offers} main={true} />
@@ -105,9 +107,28 @@ const MainPage = (props) => {
 };
 
 
+const mapStateToProps = (state) => ({
+  city: state.city,
+// mistakes: state.mistakes,
+// questions: state.questions,
+});
+
+// при смене города в диспатч передаем название города,
+// редьюсер связанный с диспатчем отберет нужные офферы по названию города,
+// и отрисует название города и кол-во офферов в OffersList. Там они выводятся.
+const mapDispatchToProps = (dispatch) => ({
+  handleCityChange(cityName) {
+    dispatch(ActionCreator.changeCity(cityName));
+  },
+});
+
 MainPage.propTypes = {
   offers: offersPropTypes,
+  handleCityChange: PropTypes.func,
+  city: PropTypes.string,
 };
 
+// handleCityChange
 
-export default MainPage;
+export {MainPage};
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

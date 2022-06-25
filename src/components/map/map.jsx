@@ -8,7 +8,7 @@ const Map = (props) => {
   const {cityMap, offers, main} = props;
   const {location} = cityMap;
   const {latitude, longitude, zoom} = location;
-  // console.log(city, offers)
+   console.log(cityMap, offers)
 
   const mapRef = useRef();
 

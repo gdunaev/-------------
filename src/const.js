@@ -24,12 +24,12 @@ const cityMap = {
 };
 
 const Cities = [
-  {name: `Paris`, id: 1},
-  {name: `Cologne`, id: 2},
-  {name: `Brussels`, id: 3},
-  {name: `Amsterdam`, id: 4},
-  {name: `Hamburg`, id: 5},
-  {name: `Dusseldorf`, id: 6},
+  {name: `Paris`},
+  {name: `Cologne`},
+  {name: `Brussels`},
+  {name: `Amsterdam`},
+  {name: `Hamburg`},
+  {name: `Dusseldorf`},
 ];
 
 const HousingType = {
@@ -39,4 +39,6 @@ const HousingType = {
   HOTEL: `hotel`,
 };
 
-export {AppRoute, getRating, cityMap, Cities, HousingType};
+const DEFAULT_CITY = `Paris`;
+
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY};
