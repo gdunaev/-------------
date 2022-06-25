@@ -91,9 +91,9 @@ const offers = [
     "isFavorite": true,
     "isPremium": true,
     "location": {
-      "latitude": 52.3909553943508,
-      "longitude": 4.929309666406198,
-      "zoom": 8
+      "latitude": 45.5774872,
+      "longitude": 9.939068899999999,
+      "zoom": 15
     },
     "maxAdults": 2,
     "previewImage": `img/apartment-02.jpg`,

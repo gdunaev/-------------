@@ -2,21 +2,24 @@
 import React, {useState} from "react";
 import OfferCard from '../offer-card/offer-card';
 import {offersPropTypes} from "../../prop-types-site";
+import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 
 const OffersList = (props) => {
-  const {offers} = props;
+  const {offers, city} = props;
 
   const [, setActiveOffer] = useState(0);
 
   const handleMouseOver = (offer) => {
     setActiveOffer(offer);
   };
+  // console.log('22' city)
 
   return (
     <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">312 places to stay in Amsterdam</b>
+        <b className="places__found">{offers.length} places to stay in {city}</b>
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by</span>
           <span className="places__sorting-type" tabIndex="0">
@@ -53,7 +56,13 @@ const OffersList = (props) => {
 
 OffersList.propTypes = {
   offers: offersPropTypes,
+  city: PropTypes.string
 };
 
+const mapStateToProps = (state) => (
+  {offers: state.offers,
+    city: state.city
+  });
 
-export default OffersList;
+export {OffersList};
+export default connect(mapStateToProps, null)(OffersList);
