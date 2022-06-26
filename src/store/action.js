@@ -1,6 +1,6 @@
 const ActionType = {
   CHANGE_CITY: `changeCity`,
-  FILL_OFFERS_LIST: `fillOffersList`,
+  SELECT_OFFER: `selectOffer`,
   RESET: `reset`
 };
 
@@ -9,6 +9,10 @@ const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
+  }),
+  selectOffer: (offer) => ({
+    type: ActionType.SELECT_OFFER,
+    payload: offer,
   }),
   reset: () => ({
     type: ActionType.RESET,

@@ -3,21 +3,24 @@ import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
 import {getRating, HousingType} from '../../const';
 import PropTypes from 'prop-types';
+import {ActionCreator} from '../../store/action';
+import {connect} from 'react-redux';
 
+let test = {};
 
 const OfferCard = (props) => {
 
-  const {offer, onMouseOver, otherOffer} = props;
+  const {offer, otherOffer, handleMouseOver} = props;
   const {id, price, isFavorite, isPremium, title, type, rating, previewImage} = offer;
 
   const ratingStyle = getRating(rating);
 
-  const handleMouseOver = () => {
-    onMouseOver(offer);
+  const handleMouseOver1 = () => {
+    return () => handleMouseOver(offer)();
   };
 
   return (
-    <article className={`${otherOffer ? `near-places__card` : `cities__place-card`} ${`place-card`}`} id = {id} onMouseOver={handleMouseOver}>
+    <article className={`${otherOffer ? `near-places__card` : `cities__place-card`} ${`place-card`}`} id = {id} onMouseOver={handleMouseOver1}>
       <div className= {`place-card__mark ${!isPremium && `visually-hidden`}`}>
         <span>Premium</span>
       </div>
@@ -42,7 +45,7 @@ const OfferCard = (props) => {
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">`${otherOffer ? `In` : `To1`} ${`bookmarks`}</span>
+            <span className="visually-hidden">`${otherOffer ? `In` : `To`} ${`bookmarks`}</span>
           </button>
         </div>
 
@@ -65,10 +68,29 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offer: offerPropTypes,
   setStateActiveOffer: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  otherOffer: PropTypes.bool
+  handleMouseOver: PropTypes.func,
+  otherOffer: PropTypes.bool,
+  // activeOffer: offerPropTypes,
 };
 
+// const mapStateToProps = (state) => ({
+  // city: state.city,
+  // offers: state.offers,
+// });
 
-export default OfferCard;
+
+// при смене города в диспатч передаем название города,
+// редьюсер связанный с диспатчем отберет нужные офферы по названию города,
+// и отрисует название города и кол-во офферов в OffersList. Там они выводятся.
+const mapDispatchToProps = (dispatch) => ({
+  handleMouseOver() {
+    dispatch(ActionCreator.selectOffer(test));
+  },
+});
+
+
+export {OfferCard};
+export default connect(null, mapDispatchToProps)(OfferCard);
+
+
 
