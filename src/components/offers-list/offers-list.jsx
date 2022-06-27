@@ -5,16 +5,10 @@ import {offersPropTypes} from "../../prop-types-site";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {ActionCreator} from '../../store/action';
+import OffersSorting from "../offers-sorting/offers-sorting";
 
 const OffersList = (props) => {
   const {offers, city, handleOfferIconOver} = props;
-
-  // const [, setActiveOffer] = useState(0);
-
-  // const handleMouseOver = (offer) => {
-  //   setActiveOffer(offer);
-  // };
-  // console.log('22' city)
 
   return (
     <>
@@ -29,20 +23,9 @@ const OffersList = (props) => {
               <use xlinkHref="#icon-arrow-select"></use>
             </svg>
           </span>
-          <ul className="places__options places__options--custom places__options--opened">
-            <li className="places__option places__option--active" tabIndex="0">
-              Popular
-            </li>
-            <li className="places__option" tabIndex="0">
-              Price: low to high
-            </li>
-            <li className="places__option" tabIndex="0">
-              Price: high to low
-            </li>
-            <li className="places__option" tabIndex="0">
-              Top rated first
-            </li>
-          </ul>
+
+          <OffersSorting />
+
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
