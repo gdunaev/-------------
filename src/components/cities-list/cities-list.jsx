@@ -41,7 +41,7 @@ const CitiesList = (props) => {
 
 CitiesList.propTypes = {
   city: PropTypes.string.isRequired,
-  // offers: offersPropTypes,
+  activ: PropTypes.bool,
   onCityClick: PropTypes.func,
 };
 

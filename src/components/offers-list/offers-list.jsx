@@ -1,18 +1,19 @@
 
-import React, {useState} from "react";
+import React from "react";
 import OfferCard from '../offer-card/offer-card';
 import {offersPropTypes} from "../../prop-types-site";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import {ActionCreator} from '../../store/action';
 
 const OffersList = (props) => {
-  const {offers, city} = props;
+  const {offers, city, handleOfferIconOver} = props;
 
-  const [, setActiveOffer] = useState(0);
+  // const [, setActiveOffer] = useState(0);
 
-  const handleMouseOver = (offer) => {
-    setActiveOffer(offer);
-  };
+  // const handleMouseOver = (offer) => {
+  //   setActiveOffer(offer);
+  // };
   // console.log('22' city)
 
   return (
@@ -45,7 +46,7 @@ const OffersList = (props) => {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} onMouseOver = {handleMouseOver}/>
+            <OfferCard key={offer.id} offer={offer} onMouseOver = {handleOfferIconOver}/>
           ))}
         </div>
       </section>
@@ -56,7 +57,8 @@ const OffersList = (props) => {
 
 OffersList.propTypes = {
   offers: offersPropTypes,
-  city: PropTypes.string
+  city: PropTypes.string,
+  handleOfferIconOver: PropTypes.func
 };
 
 const mapStateToProps = (state) => (
@@ -64,5 +66,12 @@ const mapStateToProps = (state) => (
     city: state.city
   });
 
+const mapDispatchToProps = (dispatch) => ({
+  handleOfferIconOver(offer) {
+    // console.log('11', offer)
+    dispatch(ActionCreator.selectOffer(offer));
+  },
+});
+
 export {OffersList};
-export default connect(mapStateToProps, null)(OffersList);
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);

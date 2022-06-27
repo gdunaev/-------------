@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
-import {cityMap} from "../../const";
+// import {cityMap} from "../../const";
 import CitiesList from "../cities-list/cities-list";
 import {Cities} from "../../const";
 import {connect} from 'react-redux';

@@ -5,7 +5,7 @@ import {DEFAULT_CITY} from "../const";
 const initialState = {
   city: DEFAULT_CITY,
   offers: offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY),
-  activeOffer: {},
+  activeOfferId: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,10 +19,10 @@ const reducer = (state = initialState, action) => {
       };
 
     case ActionType.SELECT_OFFER:
-      console.log(`11`, action)
+      // console.log(`11`, action)
       return {
         ...state,
-        activeOffer: action.payload
+        activeOfferId: action.payload
       };
     case ActionType.RESET:
       return {

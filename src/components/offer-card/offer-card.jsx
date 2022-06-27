@@ -6,21 +6,24 @@ import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
 import {connect} from 'react-redux';
 
-let test = {};
+// let test = {};
 
 const OfferCard = (props) => {
 
-  const {offer, otherOffer, handleMouseOver} = props;
+  const {offer, otherOffer, onMouseOver} = props;
   const {id, price, isFavorite, isPremium, title, type, rating, previewImage} = offer;
 
   const ratingStyle = getRating(rating);
 
-  const handleMouseOver1 = () => {
-    return () => handleMouseOver(offer)();
+  // console.log('22', id)
+  const handleMouseOver = () => {
+    // const test = id;
+    // console.log('111', test);
+    onMouseOver(id);
   };
 
   return (
-    <article className={`${otherOffer ? `near-places__card` : `cities__place-card`} ${`place-card`}`} id = {id} onMouseOver={handleMouseOver1}>
+    <article className={`${otherOffer ? `near-places__card` : `cities__place-card`} ${`place-card`}`} onMouseOver={handleMouseOver}>
       <div className= {`place-card__mark ${!isPremium && `visually-hidden`}`}>
         <span>Premium</span>
       </div>
@@ -67,30 +70,31 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offer: offerPropTypes,
-  setStateActiveOffer: PropTypes.func,
-  handleMouseOver: PropTypes.func,
+  // setStateActiveOffer: PropTypes.func,
+  onMouseOver: PropTypes.func,
   otherOffer: PropTypes.bool,
   // activeOffer: offerPropTypes,
 };
 
 // const mapStateToProps = (state) => ({
-  // city: state.city,
-  // offers: state.offers,
+//   activeOffer: state.activeOffer,
+//   // offers: state.offers,
 // });
 
 
 // при смене города в диспатч передаем название города,
 // редьюсер связанный с диспатчем отберет нужные офферы по названию города,
 // и отрисует название города и кол-во офферов в OffersList. Там они выводятся.
-const mapDispatchToProps = (dispatch) => ({
-  handleMouseOver() {
-    dispatch(ActionCreator.selectOffer(test));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   handleMouseOver() {
+//     console.log('111', activeOffer);
+//     dispatch(ActionCreator.selectOffer());
+//   },
+// });
 
 
 export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default connect(null, null)(OfferCard);
 
 
 
