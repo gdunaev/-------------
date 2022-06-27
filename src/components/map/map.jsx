@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
-import {offersPropTypes, offerPropTypes} from "../../prop-types-site";
+import {offersPropTypes} from "../../prop-types-site";
 import "leaflet/dist/leaflet.css";
 import {connect} from 'react-redux';
 import {Cities} from '../../const';
@@ -9,7 +9,7 @@ import {Cities} from '../../const';
 
 // ОПИСАНИЕ: активная иконка оффера отображается всегда, пока не переведут мышь на другой оффер
 // _____________________________________________________________________________________________
-
+function Map(props) {
   const {city, offers, main, activeOfferId} = props;
   // console.log('55', Cities)
   const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
@@ -72,14 +72,6 @@ import {Cities} from '../../const';
 }
 
 Map.propTypes = {
-  // cityMap: PropTypes.shape({
-  //   location: PropTypes.shape({
-  //     latitude: PropTypes.number.isRequired,
-  //     longitude: PropTypes.number.isRequired,
-  //     zoom: PropTypes.number.isRequired,
-  //   }),
-  //   name: PropTypes.string.isRequired
-  // }),
   city: PropTypes.string,
   offers: offersPropTypes,
   main: PropTypes.bool,
