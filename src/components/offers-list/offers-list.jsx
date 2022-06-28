@@ -8,7 +8,8 @@ import {ActionCreator} from '../../store/action';
 import OffersSorting from "../offers-sorting/offers-sorting";
 
 const OffersList = (props) => {
-  const {offers, city, handleOfferIconOver} = props;
+  const {offers, city, handleOfferIconOver, handleSortingClick} = props;
+
 
   return (
     <>
@@ -24,7 +25,7 @@ const OffersList = (props) => {
             </svg>
           </span>
 
-          <OffersSorting />
+          <OffersSorting onSortingClick={handleSortingClick} />
 
         </form>
         <div className="cities__places-list places__list tabs__content">
@@ -41,7 +42,8 @@ const OffersList = (props) => {
 OffersList.propTypes = {
   offers: offersPropTypes,
   city: PropTypes.string,
-  handleOfferIconOver: PropTypes.func
+  handleOfferIconOver: PropTypes.func,
+  handleSortingClick: PropTypes.func
 };
 
 const mapStateToProps = (state) => (
@@ -54,6 +56,10 @@ const mapDispatchToProps = (dispatch) => ({
     // console.log('11', offer)
     dispatch(ActionCreator.selectOffer(offer));
   },
+  handleSortingClick(id) {
+    // console.log('11', id)
+    dispatch(ActionCreator.offersSorting(id));
+  }
 });
 
 export {OffersList};

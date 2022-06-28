@@ -1,7 +1,8 @@
 const ActionType = {
   CHANGE_CITY: `changeCity`,
   SELECT_OFFER: `selectOffer`,
-  RESET: `reset`
+  OFFERS_SORTING: `offersSorting`,
+  // RESET: `reset`
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -14,9 +15,13 @@ const ActionCreator = {
     type: ActionType.SELECT_OFFER,
     payload: offer,
   }),
-  reset: () => ({
-    type: ActionType.RESET,
-  })
+  offersSorting: (id) => ({
+    type: ActionType.OFFERS_SORTING,
+    payload: id,
+  }),
+  // reset: () => ({
+  //   type: ActionType.RESET,
+  // })
 };
 
 export {ActionType, ActionCreator};

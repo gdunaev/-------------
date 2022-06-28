@@ -6,6 +6,7 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY),
   activeOfferId: 0,
+  offersSortingId: `1`,
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,10 +25,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeOfferId: action.payload
       };
-    case ActionType.RESET:
+    case ActionType.OFFERS_SORTING:
+      // console.log(`11`, action)
       return {
-        ...initialState
+        ...state,
+        offersSortingId: action.payload
       };
+    // case ActionType.RESET:
+    //   return {
+    //     ...initialState
+    //   };
   }
 
   return state;
