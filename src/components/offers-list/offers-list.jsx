@@ -53,7 +53,7 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = (dispatch) => ({
   handleOfferIconOver(offer) {
-    // console.log('11', offer)
+    // console.log('22', offer)
     dispatch(ActionCreator.selectOffer(offer));
   },
   handleSortingClick(id) {

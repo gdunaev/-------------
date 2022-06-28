@@ -28,7 +28,7 @@ const offers = [
     },
     "maxAdults": 4,
     "previewImage": `img/apartment-01.jpg`,
-    "price": 120,
+    "price": 128,
     "rating": 4.8,
     "title": `Beautiful & luxurious studio at great location`,
     "type": `apartment`

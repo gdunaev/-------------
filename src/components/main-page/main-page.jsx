@@ -93,10 +93,13 @@ const MainPage = (props) => {
           </div>
           <div className="cities">
             <div className="cities__places-container container">
+
               <OffersList />
 
               <div className="cities__right-section">
+
                 <Map main={true} />
+
               </div>
             </div>
           </div>

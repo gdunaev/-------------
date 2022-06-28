@@ -69,6 +69,13 @@ const HousingType = {
   HOTEL: `hotel`,
 };
 
+const SortingType = {
+  POPULAR: `popular`,
+  LOW_TO_HIGH: `lowToHigh`,
+  HIGH_TO_LOW: `highToLow`,
+  TOP_RATED: `topRated`,
+};
+
 const DEFAULT_CITY = `Paris`;
 
-export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY};
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType};
