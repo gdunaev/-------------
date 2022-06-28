@@ -3,10 +3,6 @@ import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
 import {getRating, HousingType} from '../../const';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
-import {connect} from 'react-redux';
-
-// let test = {};
 
 const OfferCard = (props) => {
 
@@ -15,10 +11,7 @@ const OfferCard = (props) => {
 
   const ratingStyle = getRating(rating);
 
-  // console.log('22', id)
   const handleMouseOver = () => {
-    // const test = id;
-    // console.log('111', test);
     onMouseOver(id);
   };
 
@@ -70,31 +63,9 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offer: offerPropTypes,
-  // setStateActiveOffer: PropTypes.func,
   onMouseOver: PropTypes.func,
   otherOffer: PropTypes.bool,
-  // activeOffer: offerPropTypes,
 };
 
-// const mapStateToProps = (state) => ({
-//   activeOffer: state.activeOffer,
-//   // offers: state.offers,
-// });
-
-
-// при смене города в диспатч передаем название города,
-// редьюсер связанный с диспатчем отберет нужные офферы по названию города,
-// и отрисует название города и кол-во офферов в OffersList. Там они выводятся.
-// const mapDispatchToProps = (dispatch) => ({
-//   handleMouseOver() {
-//     console.log('111', activeOffer);
-//     dispatch(ActionCreator.selectOffer());
-//   },
-// });
-
-
-export {OfferCard};
-export default connect(null, null)(OfferCard);
-
-
+export default OfferCard;
 

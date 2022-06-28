@@ -27,7 +27,7 @@ const getOffersSorting = (sortingType, offers) => {
     case SortingType.TOP_RATED:
       return offers.slice().sort(compareRated);
   }
-  return ``;
+  return offers;
 };
 
 export {getOffersSorting};
