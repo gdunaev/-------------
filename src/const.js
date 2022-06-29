@@ -78,4 +78,9 @@ const SortingType = {
 
 const DEFAULT_CITY = `Paris`;
 
-export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType};
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus};

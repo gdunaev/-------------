@@ -10,16 +10,16 @@ import LoginPage from "../login-page/login-page";
 
 
 function App(props) {
-  const {offers} = props;
+  // const {offers} = props;
   // console.log(offers[0])
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.FAVORITES} render={() => <FavoritesPage offers={offers}/>} />
+        <Route exact path={AppRoute.FAVORITES} render={() => <FavoritesPage/>} />
         <Route exact path={AppRoute.OFFER} render={() => <Offer/>} />
         <Route exact path={AppRoute.LOGIN} render={() => <LoginPage/>} />
         <Route exact path={AppRoute.MAIN}>
-          <MainPage offers={offers} />
+          <MainPage />
         </Route>
         <Route>
           <NotFoundPage />
@@ -29,9 +29,9 @@ function App(props) {
   );
 }
 
-App.propTypes = {
-  offers: offersPropTypes,
-};
+// App.propTypes = {
+//   offers: offersPropTypes,
+// };
 
 export default App;
 

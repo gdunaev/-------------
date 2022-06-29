@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
@@ -9,13 +9,25 @@ import {Cities} from "../../const";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import PropTypes from "prop-types";
+import {fetchQuestionList} from "../../services/api-actions";
+import LoadingScreen from "../loading-screen/loading-screen";
 
 const MainPage = (props) => {
 
-  const {offers, handleCityChange, city} = props;
+  const {offers, handleCityChange, city, isDataLoaded, onLoadData} = props;
 
   // console.log('33', )
-  // const activ = true;
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>
@@ -113,6 +125,7 @@ const MainPage = (props) => {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  isDataLoaded: state.isDataLoaded,
 });
 
 
@@ -123,12 +136,17 @@ const mapDispatchToProps = (dispatch) => ({
   handleCityChange(cityName) {
     dispatch(ActionCreator.changeCity(cityName));
   },
+  onLoadData() {
+    dispatch(fetchQuestionList());
+  },
 });
 
 MainPage.propTypes = {
   offers: offersPropTypes,
   handleCityChange: PropTypes.func,
   city: PropTypes.string,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 // handleCityChange
