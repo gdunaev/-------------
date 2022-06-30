@@ -1,5 +1,4 @@
 import React from "react";
-import {offersPropTypes} from "../../prop-types-site";
 import Offer from "../offer/offer";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
@@ -9,7 +8,7 @@ import NotFoundPage from "../not-found-page/not-found-page";
 import LoginPage from "../login-page/login-page";
 
 
-function App(props) {
+const App = () => {
   // const {offers} = props;
   // console.log(offers[0])
   return (

@@ -9,7 +9,7 @@ import {Cities} from '../../const';
 
 // ОПИСАНИЕ: активная иконка оффера отображается всегда, пока не переведут мышь на другой оффер
 // _____________________________________________________________________________________________
-function Map(props) {
+const Map = (props) => {
   const {city, offers, main, activeOfferId} = props;
   // console.log('55', Cities)
   const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
@@ -70,7 +70,7 @@ function Map(props) {
   return (
     <div id="map" style={getStyleMap()} ref={mapRef}></div>
   );
-}
+};
 
 Map.propTypes = {
   city: PropTypes.string,

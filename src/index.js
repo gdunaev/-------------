@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-// import {offers} from './mocks/offers-mock';
 import {reducer} from '../src/store/reducer';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';

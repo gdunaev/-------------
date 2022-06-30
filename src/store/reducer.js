@@ -1,4 +1,3 @@
-// import {offers} from "../mocks/offers-mock";
 import {ActionType} from './action';
 import {DEFAULT_CITY} from "../const";
 import {getOffersSorting} from "../utils";
