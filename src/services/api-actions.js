@@ -1,9 +1,10 @@
 import {ActionCreator} from "../store/action";
 import {AuthorizationStatus} from "../const";
 import {adaptToClient} from "./data-adapter";
+import {ApiPaths} from "../const";
 
-export const fetchQuestionList = () => (dispatch, getState, api) => (
-  api.get(`/hotels`)
+const fetchQuestionList = () => (dispatch, getState, api) => (
+  api.get(ApiPaths.HOTELS)
     .then(({data}) => {
       const offers = data.map((offer) => adaptToClient(offer));
       const state = getState();
@@ -15,13 +16,15 @@ export const fetchQuestionList = () => (dispatch, getState, api) => (
     )
 );
 
-export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(`/login`)
+const checkAuth = () => (dispatch, _getState, api) => (
+  api.get(ApiPaths.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(`/login`, {email, password})
+const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(ApiPaths.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
 );
+
+export {fetchQuestionList, checkAuth, login};

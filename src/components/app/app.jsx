@@ -26,7 +26,7 @@ const App = () => {
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 // App.propTypes = {
 //   offers: offersPropTypes,

@@ -83,4 +83,9 @@ const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus};
+const ApiPaths = {
+  HOTELS: `/hotels`,
+  LOGIN: `/login`
+};
+
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus, ApiPaths};
