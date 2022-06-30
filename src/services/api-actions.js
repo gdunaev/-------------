@@ -1,13 +1,16 @@
 import {ActionCreator} from "../store/action";
 import {AuthorizationStatus} from "../const";
-import {adaptToClient, adaptToServer} from "./data-adapter";
+import {adaptToClient} from "./data-adapter";
 
-export const fetchQuestionList = () => (dispatch, _getState, api) => (
+export const fetchQuestionList = () => (dispatch, getState, api) => (
   api.get(`/hotels`)
     .then(({data}) => {
-      const dataToClient = data.map((offer) => adaptToClient(offer));
-      console.log(`11`, dataToClient);
-      dispatch(ActionCreator.loadOffers(dataToClient));
+      const offers = data.map((offer) => adaptToClient(offer));
+      const state = getState();
+      // console.log(`11`, offers);
+      dispatch(ActionCreator.loadOffers(offers));
+      dispatch(ActionCreator.changeCity(state.city));
+      // console.log(`44`, state.offers);
     }
     )
 );

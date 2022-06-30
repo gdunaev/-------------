@@ -15,7 +15,8 @@ function Map(props) {
   const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
 
 
-  // console.log(`44`, activeOfferId);
+  // console.log(`44`, cityLocation, city);
+
   const mapRef = useRef();
 
   useEffect(() => {
