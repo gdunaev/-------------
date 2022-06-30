@@ -46,6 +46,7 @@ const reducer = (state = initialState, action) => {
         isDataLoaded: true
       };
     case ActionType.REQUIRED_AUTHORIZATION:
+      console.log('11', action.payload)
       return {
         ...state,
         authorizationStatus: action.payload,

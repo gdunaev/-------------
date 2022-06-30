@@ -9,20 +9,26 @@ import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
 import {ActionCreator} from './store/action';
 import {AuthorizationStatus} from './const';
+import {checkAuth} from './services/api-actions';
+import {redirect} from './store/middlewares/redirect';
 
 
+// создает api для связи с сервером посредством axios
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
+// создает хранилище
 const store = createStore(
     reducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
     )
 );
 
-// store.dispatch(checkAuth());
+// делает авторизацию
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

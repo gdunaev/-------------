@@ -3,7 +3,7 @@ import {AuthorizationStatus} from "../const";
 import {adaptToClient} from "./data-adapter";
 import {ApiPaths} from "../const";
 
-const fetchQuestionList = () => (dispatch, getState, api) => (
+const fetchOffers = () => (dispatch, getState, api) => (
   api.get(ApiPaths.HOTELS)
     .then(({data}) => {
       const offers = data.map((offer) => adaptToClient(offer));
@@ -24,7 +24,9 @@ const checkAuth = () => (dispatch, _getState, api) => (
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(ApiPaths.LOGIN, {email, password})
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => {
+    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH))
+    )}
 );
 
-export {fetchQuestionList, checkAuth, login};
+export {fetchOffers, checkAuth, login};

@@ -9,7 +9,7 @@ import {Cities} from "../../const";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import PropTypes from "prop-types";
-import {fetchQuestionList} from "../../services/api-actions";
+import {fetchOffers} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
 
 const MainPage = (props) => {
@@ -132,12 +132,18 @@ const mapStateToProps = (state) => ({
 // при смене города в диспатч передаем название города,
 // редьюсер связанный с диспатчем отберет нужные офферы по названию города,
 // и отрисует название города и кол-во офферов в OffersList. Там они выводятся.
+// -------------------------
+// fetchOffers - функция которую можно передать в диспатч благодаря thunk-y,
+// иначе можно передать только объект.
+// --------------------------
+// в onLoadData вызывается первый диспатч, затем когда выполнится получение
+// офферов будет вызван второй диспатч (в fetchOffers)
 const mapDispatchToProps = (dispatch) => ({
   handleCityChange(cityName) {
     dispatch(ActionCreator.changeCity(cityName));
   },
   onLoadData() {
-    dispatch(fetchQuestionList());
+    dispatch(fetchOffers());
   },
 });
 
