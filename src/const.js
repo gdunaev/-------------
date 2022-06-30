@@ -26,39 +26,39 @@ const cityMap = {
 const Cities = [
   {name: `Paris`,
     location: {
-      latitude: 48.8534,
-      longitude: 2.3488,
-      zoom: 11,
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13,
     }},
   {name: `Cologne`,
     location: {
-      latitude: 45.5774872,
-      longitude: 9.939068899999999,
+      latitude: 50.938361,
+      longitude: 6.959974,
       zoom: 13,
     }},
   {name: `Brussels`,
     location: {
-      latitude: 52.38333,
-      longitude: 4.9,
-      zoom: 11,
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13,
     }},
   {name: `Amsterdam`,
     location: {
-      latitude: 52.38333,
-      longitude: 4.9,
-      zoom: 11,
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13,
     }},
   {name: `Hamburg`,
     location: {
-      latitude: 52.38333,
-      longitude: 4.9,
-      zoom: 11,
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13,
     }},
   {name: `Dusseldorf`,
     location: {
-      latitude: 52.38333,
-      longitude: 4.9,
-      zoom: 11,
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
     }}
 ];
 
@@ -78,4 +78,14 @@ const SortingType = {
 
 const DEFAULT_CITY = `Paris`;
 
-export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType};
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+const ApiPaths = {
+  HOTELS: `/hotels`,
+  LOGIN: `/login`
+};
+
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus, ApiPaths};

@@ -2,6 +2,8 @@ const ActionType = {
   CHANGE_CITY: `changeCity`,
   SELECT_OFFER: `selectOffer`,
   OFFERS_SORTING: `offersSorting`,
+  LOAD_OFFERS: `loadOffers`,
+  REQUIRED_AUTHORIZATION: `requiredAuthorization`,
   // RESET: `reset`
 };
 
@@ -19,6 +21,14 @@ const ActionCreator = {
     type: ActionType.OFFERS_SORTING,
     payload: id,
   }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  })
   // reset: () => ({
   //   type: ActionType.RESET,
   // })

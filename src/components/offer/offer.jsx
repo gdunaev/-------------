@@ -2,17 +2,19 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {getRating, cityMap, HousingType} from '../../const';
 import {useParams} from "react-router-dom";
-import {offers} from "../../mocks/offers-mock";
 import ReviewsList from "../reviews-list/reviews-list";
 import {comments} from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
+import {offersPropTypes} from "../../prop-types-site";
+import {connect} from 'react-redux';
 
 
 const QUANTITY_OTHER_PLACES = 3;
 
-const Offer = () => {
+const Offer = (props) => {
 
+  const {offers} = props;
   const {id} = useParams();
   const offer = offers.filter((value) => value.id === Number(id))[0];
   const {isPremium, price, maxAdults, bedrooms, title, type, rating, city} = offer;
@@ -425,5 +427,13 @@ const Offer = () => {
   );
 };
 
+Offer.propTypes = {
+  offers: offersPropTypes,
+};
 
-export default Offer;
+const mapStateToProps = (state) => (
+  {offers: state.offers
+  });
+
+export {Offer};
+export default connect(mapStateToProps, null)(Offer);
