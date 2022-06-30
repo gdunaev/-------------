@@ -122,7 +122,6 @@ const MainPage = (props) => {
 };
 
 
-
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
