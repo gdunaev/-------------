@@ -11,13 +11,13 @@ import {ActionCreator} from '../../store/action';
 import PropTypes from "prop-types";
 import {fetchOffers} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
-import {useHistory} from 'react-router-dom';
+import browserHistory from "../../browser-history";
 
 const MainPage = (props) => {
 
   const {offers, handleCityChange, city, isDataLoaded, onLoadData, emailUser} = props;
   const emailUserText = emailUser ? emailUser : 'Sign in';
-  const history = useHistory();
+  const history = browserHistory;
 
   useEffect(() => {
     if (!isDataLoaded) {

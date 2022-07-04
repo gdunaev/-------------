@@ -6,6 +6,8 @@ import {AuthorizationStatus, AppRoute} from '../../const';
 
 
 const PrivateRoute = ({render, path, exact, authorizationStatus}) => {
+
+  // console.log('111', authorizationStatus)
   return (
     <Route
       path={path}

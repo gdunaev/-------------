@@ -40,3 +40,4 @@ ReactDOM.render(
 
 //ДЛЯ ТЕСТИРОВАНИЯ! 
 //1. Избранных офферов - добавить  - !offer.isFavorite вместо - offer.isFavorite в getFavorites.
+//2. вопрос по авторизации, что это за хрень такая?

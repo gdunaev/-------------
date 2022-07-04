@@ -58,8 +58,6 @@ const FavoritesPage = (props) => {
   const { offersAll, emailUser } = props;
 
   const offersFavorite = getFavorites(offersAll);
-  // console.log("11", offersFavorite);
-  
 
   return (
     <>
