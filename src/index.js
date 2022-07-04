@@ -36,3 +36,7 @@ ReactDOM.render(
     </Provider>,
     document.querySelector(`#root`)
 );
+
+
+//ДЛЯ ТЕСТИРОВАНИЯ! 
+//1. Избранных офферов - добавить  - !offer.isFavorite вместо - offer.isFavorite в getFavorites.

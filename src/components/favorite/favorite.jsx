@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {getRating} from '../../const';
 
 
+
 const Favorite = (props) => {
 
   const {offer} = props;
@@ -57,6 +58,7 @@ const Favorite = (props) => {
     </>
   );
 };
+
 
 
 Favorite.propTypes = {

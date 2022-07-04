@@ -3,20 +3,22 @@ import {Link} from "react-router-dom";
 import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
-// import {cityMap} from "../../const";
+import {Redirect} from 'react-router-dom';
 import CitiesList from "../cities-list/cities-list";
-import {Cities} from "../../const";
+import {Cities, AppRoute} from "../../const";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import PropTypes from "prop-types";
 import {fetchOffers} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
+import {useHistory} from 'react-router-dom';
 
 const MainPage = (props) => {
 
-  const {offers, handleCityChange, city, isDataLoaded, onLoadData} = props;
+  const {offers, handleCityChange, city, isDataLoaded, onLoadData, emailUser} = props;
+  const emailUserText = emailUser ? emailUser : 'Sign in';
+  const history = useHistory();
 
-  // console.log('33', )
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
@@ -28,6 +30,12 @@ const MainPage = (props) => {
       <LoadingScreen />
     );
   }
+
+  const handleAvatarClick = () => {
+    return (
+      emailUser ? history.push(AppRoute.FAVORITES) : history.push(AppRoute.LOGIN)
+    );
+  };
 
   return (
     <>
@@ -73,14 +81,14 @@ const MainPage = (props) => {
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
-                  <li className="header__nav-item user">
+                  <li className="header__nav-item user" onClick={handleAvatarClick}>
                     <Link
                       className="header__nav-link header__nav-link--profile"
                       to="#"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {emailUserText}
                       </span>
                     </Link>
                   </li>
@@ -126,6 +134,7 @@ const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   isDataLoaded: state.isDataLoaded,
+  emailUser: state.emailUser,
 });
 
 
@@ -145,6 +154,9 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffers());
   },
+  // handleAvatarClick() {
+  //   console.log('2233')
+  // }
 });
 
 MainPage.propTypes = {
@@ -153,6 +165,7 @@ MainPage.propTypes = {
   city: PropTypes.string,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
+  emailUser: PropTypes.string,
 };
 
 // handleCityChange

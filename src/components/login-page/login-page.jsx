@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {AppRoute} from '../../const';
 import React, {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
+// import {useHistory} from 'react-router-dom';
 import {connect} from "react-redux";
 import {login} from "../../services/api-actions";
 import PropTypes from "prop-types";
@@ -11,7 +11,7 @@ const LoginPage = ({onSubmit}) => {
 
   const loginRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,9 +21,9 @@ const LoginPage = ({onSubmit}) => {
     });
   };
 
-  const handleSignInClick = () => {
-    history.push(`/`);
-  };
+  // const handleSignInClick = () => {
+    // history.push(`/`);
+  // };
 
   return (
     <>
@@ -119,7 +119,7 @@ const LoginPage = ({onSubmit}) => {
                 <button
                   className="login__submit form__submit button"
                   type="submit"
-                  onClick={handleSignInClick}
+                  // onClick={handleSignInClick}
                 >
                   Sign in
                 </button>

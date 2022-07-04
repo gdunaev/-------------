@@ -1,37 +1,69 @@
-import React from 'react';
-import {Link} from "react-router-dom";
-import {AppRoute} from "../../const";
-import {offersPropTypes} from "../../prop-types-site";
-import FavoritesList from '../favorites-list/favorites-list';
+import React from "react";
+import { Link } from "react-router-dom";
+import { AppRoute, Cities } from "../../const";
+import { offersPropTypes } from "../../prop-types-site";
+import FavoritesList from "../favorites-list/favorites-list";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const getFavorites = (offers) => {
-
   const offersFavorite = offers.filter((offer) => offer.isFavorite);
-
-  const cities = new Set(offersFavorite.map((offer) => offer.city.name));
-
+  
   const favorites = [];
-  for (const city of cities) {
-    favorites.push(
-        {
-          city,
-          offers: offersFavorite.filter((offer) => offer.city.name === city),
-        }
-    );
-  }
-  return favorites;
 
+  if (offersFavorite.length !== 0) {
+    for (const city of Cities) {
+      favorites.push({
+        city: city.name,
+        offers: offersFavorite.filter((offer) => offer.city.name === city.name),
+      });
+    }
+  }
+  
+  return favorites;
 };
 
+const getFavoritesSection = (offersFavorite) => {
+  if (offersFavorite.length !== 0) {
+    return (
+      <section className="favorites">
+        <h1 className="favorites__title">Saved listing</h1>
+        <ul className="favorites__list">
+          {offersFavorite.map((favorite, id) => (
+            <FavoritesList
+              key={`${favorite.city}-${id}`}
+              currentOffers={favorite.offers}
+              currentCity={favorite.city}
+            />
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
+  return (
+    <section className="favorites favorites--empty">
+      <h1 className="visually-hidden">Favorites (empty)</h1>
+      <div className="favorites__status-wrapper">
+        <b className="favorites__status">Nothing yet saved.</b>
+        <p className="favorites__status-description">
+          Save properties to narrow down search or plan your future trips.
+        </p>
+      </div>
+    </section>
+  );
+};
 
 const FavoritesPage = (props) => {
+  const { offersAll, emailUser } = props;
 
-  const {offers} = props;
-  const offersFavorite = getFavorites(offers);
+  const offersFavorite = getFavorites(offersAll);
+  // console.log("11", offersFavorite);
+  
 
   return (
     <>
-      <div style={{display: `none`}}>
+      <div style={{ display: `none` }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -53,7 +85,7 @@ const FavoritesPage = (props) => {
         </svg>
       </div>
 
-      <div className="page">
+      <div className={offersFavorite.length === 0 ? `page page--favorites-empty` : `page`}>
         <header className="header">
           <div className="container">
             <div className="header__wrapper">
@@ -77,7 +109,7 @@ const FavoritesPage = (props) => {
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {emailUser}
                       </span>
                     </Link>
                   </li>
@@ -87,18 +119,11 @@ const FavoritesPage = (props) => {
           </div>
         </header>
 
-        <main className="page__main page__main--favorites">
+        <main className={offersFavorite.length === 0 ? `page__main page__main--favorites page__main--favorites-empty` : `page__main page__main--favorites`}>
           <div className="page__favorites-container container">
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
 
-                {offersFavorite.map((favorite, id) => (
-                  <FavoritesList key={`${favorite.city}-${id}`} offers={favorite.offers} city = {favorite.city} />
-                ))}
+          {getFavoritesSection(offersFavorite)}
 
-              </ul>
-            </section>
           </div>
         </main>
         <footer className="footer container">
@@ -117,7 +142,15 @@ const FavoritesPage = (props) => {
   );
 };
 
-FavoritesPage.propTypes = offersPropTypes;
+const mapStateToProps = (state) => ({
+  offersAll: state.offersAll,
+  emailUser: state.emailUser,
+});
 
-export default FavoritesPage;
+FavoritesPage.propTypes = {
+  offersAll: offersPropTypes,
+  emailUser: PropTypes.string,
+};
 
+export { FavoritesPage };
+export default connect(mapStateToProps, null)(FavoritesPage);

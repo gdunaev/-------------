@@ -4,7 +4,8 @@ const ActionType = {
   OFFERS_SORTING: `offersSorting`,
   LOAD_OFFERS: `loadOffers`,
   REQUIRED_AUTHORIZATION: `requiredAuthorization`,
-  // RESET: `reset`
+  REDIRECT_TO_ROUTE: `redirectToRoute`,
+  AUTHORIZED_USER: `authorizedUser`,
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -28,10 +29,15 @@ const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
-  })
-  // reset: () => ({
-  //   type: ActionType.RESET,
-  // })
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  authorizedUser: (status) => ({
+    type: ActionType.AUTHORIZED_USER,
+    payload: status,
+  }),
 };
 
 export {ActionType, ActionCreator};

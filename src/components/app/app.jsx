@@ -1,6 +1,6 @@
 import React from "react";
 import Offer from "../offer/offer";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
 import FavoritesPage from "../favorites-page/favorites-page";
 import {AppRoute} from "../../const";

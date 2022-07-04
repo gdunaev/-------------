@@ -1,7 +1,7 @@
 import {ActionCreator} from "../store/action";
 import {AuthorizationStatus} from "../const";
 import {adaptToClient} from "./data-adapter";
-import {ApiPaths} from "../const";
+import {ApiPaths, AppRoute} from "../const";
 
 const fetchOffers = () => (dispatch, getState, api) => (
   api.get(ApiPaths.HOTELS)
@@ -22,11 +22,14 @@ const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
+//при открытии Favorites, если нет авторизации перекидывает на SignIn, и там после 
+//авторизации перекидывает на Главную.
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(ApiPaths.LOGIN, {email, password})
-    .then(() => {
-    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH))
-    )}
+    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.authorizedUser(email)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.LOGIN)))
 );
 
 export {fetchOffers, checkAuth, login};

@@ -11,6 +11,7 @@ const initialState = {
   offersSortingId: SortingType.POPULAR,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  emailUser: null
 };
 
 // offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY)
@@ -46,15 +47,17 @@ const reducer = (state = initialState, action) => {
         isDataLoaded: true
       };
     case ActionType.REQUIRED_AUTHORIZATION:
-      console.log('11', action.payload)
+      // console.log('11', action.payload)
       return {
         ...state,
         authorizationStatus: action.payload,
       };
-    // case ActionType.RESET:
-    //   return {
-    //     ...initialState
-    //   };
+    case ActionType.AUTHORIZED_USER:
+        // console.log('11', action.payload)
+        return {
+          ...state,
+          emailUser: action.payload,
+        };
 
   }
 
