@@ -1,6 +1,6 @@
 import React from "react";
 import Offer from "../offer/offer";
-import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
 import FavoritesPage from "../favorites-page/favorites-page";
 import {AppRoute} from "../../const";
@@ -10,8 +10,6 @@ import PrivateRoute from "../private-route/private-route";
 
 
 const App = () => {
-  // const {offers} = props;
-  // console.log(offers[0])
   return (
     <BrowserRouter>
       <Switch>
