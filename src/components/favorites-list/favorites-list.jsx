@@ -4,7 +4,6 @@ import {offersPropTypes} from "../../prop-types-site";
 import {Link} from "react-router-dom";
 import Favorite from "../favorite/favorite";
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 
 const FavoritesList = (props) => {

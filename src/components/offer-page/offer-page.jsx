@@ -1,23 +1,51 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {getRating, cityMap, HousingType} from '../../const';
-import {useParams} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { getRating, cityMap, HousingType, AppRoute } from "../../const";
+import { useParams } from "react-router-dom";
 import ReviewsList from "../reviews-list/reviews-list";
-import {comments} from "../../mocks/comments";
+import { comments } from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import {offersPropTypes} from "../../prop-types-site";
-import {connect} from 'react-redux';
-
+import { offersPropTypes } from "../../prop-types-site";
+import { connect } from "react-redux";
+import browserHistory from "../../browser-history";
+import ImagesOffer from "../images-offer/images-offer";
 
 const QUANTITY_OTHER_PLACES = 3;
 
-const Offer = (props) => {
+const getImagesSection = (images) => {
+  if (images.length !== 0) {
+    return (
+      <div className="property__gallery">
+        {images.map((image) => (
+          <ImagesOffer key={image} image={image} />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="property__gallery">
+    </div>
+  );
+};
 
-  const {offers} = props;
-  const {id} = useParams();
+const Offer = (props) => {
+  const { offers, emailUser } = props;
+  const { id } = useParams();
   const offer = offers.filter((value) => value.id === Number(id))[0];
-  const {isPremium, price, maxAdults, bedrooms, title, type, rating, city} = offer;
+
+  console.log("111", offer);
+  const {
+    isPremium,
+    price,
+    maxAdults,
+    bedrooms,
+    title,
+    type,
+    rating,
+    city,
+    images,
+  } = offer;
 
   const reviews = comments.filter((value) => value.id === Number(id));
   const reviewsLength = reviews ? `${reviews.length}` : ``;
@@ -28,18 +56,31 @@ const Offer = (props) => {
   });
 
   const handleFieldChange = (evt) => {
-    const {name, value} = evt.target;
-    setUserForm({...userForm, [name]: value});
+    const { name, value } = evt.target;
+    setUserForm({ ...userForm, [name]: value });
   };
 
   const ratingStyle = getRating(rating);
 
   // отбираем офферы по городу исключая наш, который отрисовываем
-  const otherOffers = offers.filter((currentOffer) => currentOffer.city.name === city.name && currentOffer !== offer).slice(0, QUANTITY_OTHER_PLACES);
+  const otherOffers = offers
+    .filter(
+      (currentOffer) =>
+        currentOffer.city.name === city.name && currentOffer !== offer
+    )
+    .slice(0, QUANTITY_OTHER_PLACES);
   const otherOffersMap = otherOffers.slice();
   otherOffersMap.push(offer);
 
-  // console.log(otherOffersMap)
+  //выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
+  const emailUserText = emailUser ? emailUser : "Sign in";
+  const history = browserHistory;
+  const handleAvatarClick = () => {
+    // console.log('222', )
+    return emailUser
+      ? history.push(AppRoute.FAVORITES)
+      : history.push(AppRoute.LOGIN);
+  };
 
   const handleMouseOver = () => {
     // setActiveOffer(offer);
@@ -47,7 +88,7 @@ const Offer = (props) => {
 
   return (
     <>
-      <div style={{display: `none`}}>
+      <div style={{ display: `none` }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -86,14 +127,17 @@ const Offer = (props) => {
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
-                  <li className="header__nav-item user">
+                  <li
+                    className="header__nav-item user"
+                    onClick={handleAvatarClick}
+                  >
                     <Link
                       className="header__nav-link header__nav-link--profile"
                       to="#"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {emailUserText}
                       </span>
                     </Link>
                   </li>
@@ -106,50 +150,7 @@ const Offer = (props) => {
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/room.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-02.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-03.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/studio-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-              </div>
+              {getImagesSection(images)}
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
@@ -397,9 +398,7 @@ const Offer = (props) => {
               </div>
             </div>
             <section className="property__map map">
-
-              <Map cityMap={cityMap} offers={otherOffersMap}/>
-
+              <Map cityMap={cityMap} offers={otherOffersMap} />
             </section>
           </section>
           <div className="container">
@@ -408,16 +407,14 @@ const Offer = (props) => {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-
                 {otherOffers.map((currentOffer) => (
                   <OfferCard
                     key={currentOffer.id}
                     offer={currentOffer}
                     otherOffer={true}
-                    onMouseOver = {handleMouseOver}
+                    onMouseOver={handleMouseOver}
                   />
                 ))}
-
               </div>
             </section>
           </div>
@@ -431,9 +428,10 @@ Offer.propTypes = {
   offers: offersPropTypes,
 };
 
-const mapStateToProps = (state) => (
-  {offers: state.offers
-  });
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  emailUser: state.emailUser,
+});
 
-export {Offer};
+export { Offer };
 export default connect(mapStateToProps, null)(Offer);
