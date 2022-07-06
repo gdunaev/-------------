@@ -1,24 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { getRating, cityMap, HousingType, AppRoute } from "../../const";
-import { useParams } from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link} from "react-router-dom";
+import {getRating, cityMap, HousingType, AppRoute, QUANTITY_IMAGES, QUANTITY_OTHER_PLACES} from "../../const";
+import {useParams} from "react-router-dom";
 import ReviewsList from "../reviews-list/reviews-list";
-import { comments } from "../../mocks/comments";
+import {comments} from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import { offersPropTypes } from "../../prop-types-site";
-import { connect } from "react-redux";
+import {offersPropTypes} from "../../prop-types-site";
+import {connect} from "react-redux";
 import browserHistory from "../../browser-history";
 import ImagesOffer from "../images-offer/images-offer";
-import offersList from "../offers-list/offers-list";
+import PropTypes from "prop-types";
+import {fetchOffers} from "../../services/api-actions";
+import LoadingScreen from "../loading-screen/loading-screen";
+import NotFoundPage from "../not-found-page/not-found-page";
 
-const QUANTITY_OTHER_PLACES = 3;
 
 const getImagesSection = (images) => {
   if (images.length !== 0) {
+    const currentImages = images.length >= QUANTITY_IMAGES ? images.slice(0, QUANTITY_IMAGES) : images.slice();
     return (
       <div className="property__gallery">
-        {images.map((image) => (
+        {currentImages.map((image) => (
           <ImagesOffer key={image} image={image} />
         ))}
       </div>
@@ -31,20 +34,43 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const { offers, emailUser } = props;
+  const {offersAll, emailUser, isDataLoaded, onLoadData} = props;
 
-  
-  const history = browserHistory;
+  const {id} = useParams();
 
-  if (offers.length === 0) {
-    // console.log("111", offers);
-    history.push(AppRoute.MAIN);
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
   }
 
-  const { id } = useParams();
-  const offer = offers.filter((value) => value.id === Number(id))[0];
+  // console.log("222", offersAll, isDataLoaded)
 
-  // console.log("111", offer);
+  const history = browserHistory;
+
+
+  const findedOffer = offersAll.find((offer) => Number(id) === offer.id);
+
+
+  if (!findedOffer) {
+    // console.log("111", offers);
+    return (
+      <NotFoundPage />
+    );
+  }
+
+
+  // const offer = offersAll.filter((value) => value.id === Number(id))[0];
+
+  // console.log("111", findedOffer);
+
   const {
     isPremium,
     price,
@@ -55,37 +81,38 @@ const OfferPage = (props) => {
     rating,
     city,
     images,
-  } = offer;
+  } = findedOffer;
 
   const reviews = comments.filter((value) => value.id === Number(id));
   const reviewsLength = reviews ? `${reviews.length}` : ``;
 
-  const [userForm, setUserForm] = React.useState({
-    rating: ``,
-    review: ``,
-  });
+  // const [userForm, setUserForm] = React.useState({
+  //   rating: ``,
+  //   review: ``,
+  // });
 
-  const handleFieldChange = (evt) => {
-    const { name, value } = evt.target;
-    setUserForm({ ...userForm, [name]: value });
+  const handleFieldChange = () => {
+    // const {name, value} = evt.target;
+    // console.log('222', name)
+    // setUserForm({...userForm, [name]: value});
   };
 
   const ratingStyle = getRating(rating);
 
   // отбираем офферы по городу исключая наш, который отрисовываем
-  const otherOffers = offers
+  const otherOffers = offersAll
     .filter(
-      (currentOffer) =>
-        currentOffer.city.name === city.name && currentOffer !== offer
+        (currentOffer) =>
+          currentOffer.city.name === city.name && currentOffer !== findedOffer
     )
     .slice(0, QUANTITY_OTHER_PLACES);
 
   const otherOffersMap = otherOffers.slice();
-  otherOffersMap.push(offer);
+  otherOffersMap.push(findedOffer);
 
-  //выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
-  const emailUserText = emailUser ? emailUser : "Sign in";
-    
+  // выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
+  const emailUserText = emailUser ? emailUser : `Sign in`;
+
   const handleAvatarClick = () => {
     return emailUser
       ? history.push(AppRoute.FAVORITES)
@@ -98,7 +125,7 @@ const OfferPage = (props) => {
 
   return (
     <>
-      <div style={{ display: `none` }}>
+      <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -435,13 +462,23 @@ const OfferPage = (props) => {
 };
 
 OfferPage.propTypes = {
-  offers: offersPropTypes,
+  offersAll: offersPropTypes,
+  emailUser: PropTypes.string,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offersAll: state.offersAll,
   emailUser: state.emailUser,
+  isDataLoaded: state.isDataLoaded,
 });
 
-export { OfferPage };
-export default connect(mapStateToProps, null)(OfferPage);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchOffers());
+  },
+});
+
+export {OfferPage};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);

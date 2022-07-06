@@ -6,6 +6,7 @@ const AppRoute = {
   OFFER: `/offer/:id`,
   FAVORITES: `/favorites`,
   LOGIN: `/login`,
+  NOT_FOUND_PAGE: `/not_found`
 };
 
 const getRating = (rating) => {
@@ -88,4 +89,11 @@ const ApiPaths = {
   LOGIN: `/login`
 };
 
-export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus, ApiPaths};
+
+const QUANTITY_OTHER_PLACES = 3;
+
+const QUANTITY_IMAGES = 6;
+
+const TEXT_SIGN_IN = `Sign In`;
+
+export {AppRoute, getRating, cityMap, Cities, HousingType, DEFAULT_CITY, SortingType, AuthorizationStatus, TEXT_SIGN_IN, ApiPaths, QUANTITY_OTHER_PLACES, QUANTITY_IMAGES};

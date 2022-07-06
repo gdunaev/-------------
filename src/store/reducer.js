@@ -53,11 +53,11 @@ const reducer = (state = initialState, action) => {
         authorizationStatus: action.payload,
       };
     case ActionType.AUTHORIZED_USER:
-        // console.log('11', action.payload)
-        return {
-          ...state,
-          emailUser: action.payload,
-        };
+      // console.log('11', action.payload)
+      return {
+        ...state,
+        emailUser: action.payload,
+      };
 
   }
 

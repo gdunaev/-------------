@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
-import {getRating, HousingType, AppRoute} from '../../const';
+import {getRating, HousingType} from '../../const';
 import PropTypes from 'prop-types';
 import browserHistory from "../../browser-history";
 

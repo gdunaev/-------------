@@ -22,8 +22,8 @@ const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-//при открытии Favorites, если нет авторизации перекидывает на SignIn, и там после 
-//авторизации перекидывает на Главную.
+// при открытии Favorites, если нет авторизации перекидывает на SignIn, и там после
+// авторизации перекидывает на Главную.
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(ApiPaths.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))

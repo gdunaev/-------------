@@ -9,18 +9,18 @@ const ImagesOffer = (props) => {
 
   return (
     <div className="property__image-wrapper">
-    <img
-      className="property__image"
-      src={image}
-      alt="Photo studio"
-    />
-  </div>
+      <img
+        className="property__image"
+        src={image}
+        alt="Photo studio"
+      />
+    </div>
   );
 };
 
 
 ImagesOffer.propTypes = {
-    image: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 

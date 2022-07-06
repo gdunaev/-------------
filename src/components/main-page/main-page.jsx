@@ -4,7 +4,7 @@ import {offersPropTypes} from "../../prop-types-site";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
-import {Cities, AppRoute} from "../../const";
+import {Cities, AppRoute, TEXT_SIGN_IN} from "../../const";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import PropTypes from "prop-types";
@@ -15,8 +15,10 @@ import browserHistory from "../../browser-history";
 const MainPage = (props) => {
 
   const {offers, handleCityChange, city, isDataLoaded, onLoadData, emailUser} = props;
-  const emailUserText = emailUser ? emailUser : 'Sign in';
+  const emailUserText = emailUser ? emailUser : TEXT_SIGN_IN;
   const history = browserHistory;
+
+  // console.log("111", offers);
 
   useEffect(() => {
     if (!isDataLoaded) {

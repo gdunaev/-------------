@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { AppRoute, Cities } from "../../const";
-import { offersPropTypes } from "../../prop-types-site";
+import {Link} from "react-router-dom";
+import {AppRoute, Cities} from "../../const";
+import {offersPropTypes} from "../../prop-types-site";
 import FavoritesList from "../favorites-list/favorites-list";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 const getFavorites = (offers) => {
   const offersFavorite = offers.filter((offer) => offer.isFavorite);
-  
   const favorites = [];
 
   if (offersFavorite.length !== 0) {
@@ -19,7 +18,7 @@ const getFavorites = (offers) => {
       });
     }
   }
-  
+
   return favorites;
 };
 
@@ -55,13 +54,13 @@ const getFavoritesSection = (offersFavorite) => {
 };
 
 const FavoritesPage = (props) => {
-  const { offersAll, emailUser } = props;
+  const {offersAll, emailUser} = props;
 
   const offersFavorite = getFavorites(offersAll);
 
   return (
     <>
-      <div style={{ display: `none` }}>
+      <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
             <path
@@ -120,7 +119,7 @@ const FavoritesPage = (props) => {
         <main className={offersFavorite.length === 0 ? `page__main page__main--favorites page__main--favorites-empty` : `page__main page__main--favorites`}>
           <div className="page__favorites-container container">
 
-          {getFavoritesSection(offersFavorite)}
+            {getFavoritesSection(offersFavorite)}
 
           </div>
         </main>
@@ -150,5 +149,5 @@ FavoritesPage.propTypes = {
   emailUser: PropTypes.string,
 };
 
-export { FavoritesPage };
+export {FavoritesPage};
 export default connect(mapStateToProps, null)(FavoritesPage);
