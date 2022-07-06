@@ -1,5 +1,5 @@
 import React from "react";
-import Offer from "../offer-page/offer-page";
+import OfferPage from "../offer-page/offer-page";
 import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
 import MainPage from "../main-page/main-page";
 import FavoritesPage from "../favorites-page/favorites-page";
@@ -14,8 +14,7 @@ const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-
-        <Route exact path={AppRoute.OFFER} render={() => <Offer/>} />
+        <Route exact path={AppRoute.OFFER} render={() => <OfferPage />} />
         <Route exact path={AppRoute.LOGIN} render={() => <LoginPage/>} />
         <PrivateRoute exact
           path={AppRoute.FAVORITES}

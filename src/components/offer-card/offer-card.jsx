@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {offerPropTypes} from "../../prop-types-site";
-import {getRating, HousingType} from '../../const';
+import {getRating, HousingType, AppRoute} from '../../const';
 import PropTypes from 'prop-types';
+import browserHistory from "../../browser-history";
 
 const OfferCard = (props) => {
 
@@ -13,6 +14,11 @@ const OfferCard = (props) => {
 
   const handleMouseOver = () => {
     onMouseOver(id);
+  };
+
+  const history = browserHistory;
+  const handleCardClick = () => {
+    history.push(`offer/${id}`);
   };
 
   return (
@@ -52,8 +58,8 @@ const OfferCard = (props) => {
           </div>
         </div>
 
-        <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>{title}</Link>
+        <h2 className="place-card__name" onClick={handleCardClick}>
+          <Link to='#'>{title}</Link>
         </h2>
         <p className="place-card__type">{HousingType[type.toUpperCase()]}</p>
       </div>

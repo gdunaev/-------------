@@ -10,6 +10,7 @@ import { offersPropTypes } from "../../prop-types-site";
 import { connect } from "react-redux";
 import browserHistory from "../../browser-history";
 import ImagesOffer from "../images-offer/images-offer";
+import offersList from "../offers-list/offers-list";
 
 const QUANTITY_OTHER_PLACES = 3;
 
@@ -29,12 +30,21 @@ const getImagesSection = (images) => {
   );
 };
 
-const Offer = (props) => {
+const OfferPage = (props) => {
   const { offers, emailUser } = props;
+
+  
+  const history = browserHistory;
+
+  if (offers.length === 0) {
+    // console.log("111", offers);
+    history.push(AppRoute.MAIN);
+  }
+
   const { id } = useParams();
   const offer = offers.filter((value) => value.id === Number(id))[0];
 
-  console.log("111", offer);
+  // console.log("111", offer);
   const {
     isPremium,
     price,
@@ -69,14 +79,14 @@ const Offer = (props) => {
         currentOffer.city.name === city.name && currentOffer !== offer
     )
     .slice(0, QUANTITY_OTHER_PLACES);
+
   const otherOffersMap = otherOffers.slice();
   otherOffersMap.push(offer);
 
   //выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
   const emailUserText = emailUser ? emailUser : "Sign in";
-  const history = browserHistory;
+    
   const handleAvatarClick = () => {
-    // console.log('222', )
     return emailUser
       ? history.push(AppRoute.FAVORITES)
       : history.push(AppRoute.LOGIN);
@@ -424,7 +434,7 @@ const Offer = (props) => {
   );
 };
 
-Offer.propTypes = {
+OfferPage.propTypes = {
   offers: offersPropTypes,
 };
 
@@ -433,5 +443,5 @@ const mapStateToProps = (state) => ({
   emailUser: state.emailUser,
 });
 
-export { Offer };
-export default connect(mapStateToProps, null)(Offer);
+export { OfferPage };
+export default connect(mapStateToProps, null)(OfferPage);
