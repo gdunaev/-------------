@@ -435,7 +435,9 @@ const OfferPage = (props) => {
               </div>
             </div>
             <section className="property__map map">
+
               <Map cityMap={cityMap} offers={otherOffersMap} />
+
             </section>
           </section>
           <div className="container">
@@ -444,6 +446,7 @@ const OfferPage = (props) => {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
+
                 {otherOffers.map((currentOffer) => (
                   <OfferCard
                     key={currentOffer.id}
@@ -452,6 +455,7 @@ const OfferPage = (props) => {
                     onMouseOver={handleMouseOver}
                   />
                 ))}
+
               </div>
             </section>
           </div>

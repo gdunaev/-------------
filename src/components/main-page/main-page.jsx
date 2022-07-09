@@ -119,7 +119,7 @@ const MainPage = (props) => {
 
               <div className="cities__right-section">
 
-                <Map main={true} />
+                <Map main={true} offers={offers}/>
 
               </div>
             </div>

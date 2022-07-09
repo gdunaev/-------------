@@ -14,8 +14,12 @@ const Map = (props) => {
   // console.log('55', Cities)
   const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
 
+  // let currentOffers = offers;
+  // if (otherOffers.length !== 0) {
+  //   currentOffers = otherOffers;
+  // }
 
-  // console.log(`44`, cityLocation, city);
+  // console.log(`44`, otherOffers);
 
   const mapRef = useRef();
 
@@ -37,7 +41,7 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-    offers.forEach((offer) => {
+      offers.forEach((offer) => {
       const locationOffer = offer.location;
       const customIcon = leaflet.icon({
         iconUrl: offer.id !== activeOfferId ? `./img/pin.svg` : `./img/pin-active.svg`,
@@ -75,13 +79,14 @@ const Map = (props) => {
 Map.propTypes = {
   city: PropTypes.string,
   offers: offersPropTypes,
+  // otherOffers: PropTypes.arrayOf().isRequired,
   main: PropTypes.bool,
   activeOfferId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers,
+  // offers: state.offers,
   activeOfferId: state.activeOfferId,
 });
 
