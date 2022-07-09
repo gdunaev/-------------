@@ -112,6 +112,9 @@ const OfferPage = (props) => {
 
   // выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
   const emailUserText = emailUser ? emailUser : `Sign in`;
+  const isUser = emailUser ? true : false;
+
+  console.log('222', isUser, emailUser)
 
   const handleAvatarClick = () => {
     return emailUser
@@ -289,7 +292,7 @@ const OfferPage = (props) => {
 
                   <ReviewsList reviews={reviews} />
 
-                  <form className="reviews__form form" action="#" method="post">
+                  {isUser && <form className="reviews__form form" action="#" method="post">
                     <label
                       className="reviews__label form__label"
                       htmlFor="review"
@@ -430,7 +433,8 @@ const OfferPage = (props) => {
                         Submit
                       </button>
                     </div>
-                  </form>
+                  </form>}
+
                 </section>
               </div>
             </div>
