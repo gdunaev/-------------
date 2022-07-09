@@ -114,7 +114,7 @@ const OfferPage = (props) => {
   const emailUserText = emailUser ? emailUser : `Sign in`;
   const isUser = emailUser ? true : false;
 
-  console.log('222', isUser, emailUser)
+  // console.log('222', isUser, emailUser)
 
   const handleAvatarClick = () => {
     return emailUser

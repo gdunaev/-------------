@@ -8,7 +8,7 @@ import {ActionCreator} from '../../store/action';
 import OffersSorting from "../offers-sorting/offers-sorting";
 
 const OffersList = (props) => {
-  const {offers, city, handleOfferIconOver, handleSortingClick} = props;
+  const {offers, city, handleActiveOffer, handleSortingClick} = props;
 
 
   return (
@@ -30,7 +30,7 @@ const OffersList = (props) => {
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} onMouseOver = {handleOfferIconOver}/>
+            <OfferCard key={offer.id} offer={offer} onMouseOver = {handleActiveOffer}/>
           ))}
         </div>
       </section>
@@ -42,7 +42,7 @@ const OffersList = (props) => {
 OffersList.propTypes = {
   offers: offersPropTypes,
   city: PropTypes.string,
-  handleOfferIconOver: PropTypes.func,
+  handleActiveOffer: PropTypes.func,
   handleSortingClick: PropTypes.func
 };
 
@@ -52,9 +52,9 @@ const mapStateToProps = (state) => (
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleOfferIconOver(offer) {
+  handleActiveOffer(offerId) {
     // console.log('22', offer)
-    dispatch(ActionCreator.selectOffer(offer));
+    dispatch(ActionCreator.selectOffer(offerId));
   },
   handleSortingClick(id) {
     // console.log('11', id)

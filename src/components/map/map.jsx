@@ -5,12 +5,17 @@ import {offersPropTypes} from "../../prop-types-site";
 import "leaflet/dist/leaflet.css";
 import {connect} from 'react-redux';
 import {Cities} from '../../const';
+import {useParams} from 'react-router-dom';
+import {ActionCreator} from '../../store/action';
 
+// const checkActiveOffer = () => {
+
+// };
 
 // ОПИСАНИЕ: активная иконка оффера отображается всегда, пока не переведут мышь на другой оффер
 // _____________________________________________________________________________________________
 const Map = (props) => {
-  const {city, offers, main, activeOfferId} = props;
+  const {city, offers, main, activeOfferId, setActiveOffer} = props;
   // console.log('55', Cities)
   const cityLocation = Cities.find((currentCity) => currentCity.name === city).location;
 
@@ -19,7 +24,14 @@ const Map = (props) => {
   //   currentOffers = otherOffers;
   // }
 
-  // console.log(`44`, otherOffers);
+  const {id} = useParams();
+  if(activeOfferId === 0) {
+    setActiveOffer(Number(id));
+  }
+
+
+
+  // console.log(`44`, id);
 
   const mapRef = useRef();
 
@@ -41,7 +53,7 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-      offers.forEach((offer) => {
+    offers.forEach((offer) => {
       const locationOffer = offer.location;
       const customIcon = leaflet.icon({
         iconUrl: offer.id !== activeOfferId ? `./img/pin.svg` : `./img/pin-active.svg`,
@@ -79,7 +91,7 @@ const Map = (props) => {
 Map.propTypes = {
   city: PropTypes.string,
   offers: offersPropTypes,
-  // otherOffers: PropTypes.arrayOf().isRequired,
+  setActiveOffer: PropTypes.func.isRequired,
   main: PropTypes.bool,
   activeOfferId: PropTypes.number.isRequired,
 };
@@ -90,6 +102,11 @@ const mapStateToProps = (state) => ({
   activeOfferId: state.activeOfferId,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setActiveOffer(id) {
+    dispatch(ActionCreator.selectOffer(id));
+  },
+});
 
 export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
