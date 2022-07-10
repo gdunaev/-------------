@@ -11,7 +11,11 @@ const initialState = {
   offersSortingId: SortingType.POPULAR,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  emailUser: null
+  emailUser: null,
+  loadedOffer: {},
+  isLoadedOffer: true,
+  otherOffers: [],
+  isLoadedOtherOffers: false
 };
 
 // offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY)
@@ -46,6 +50,23 @@ const reducer = (state = initialState, action) => {
         offersAll: action.payload,
         isDataLoaded: true
       };
+    case ActionType.LOAD_OTHER_OFFERS:
+        return {
+          ...state,
+          otherOffers: action.payload,
+          isLoadedOtherOffers: true
+        };
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        loadedOffer: action.payload,
+        isLoadedOffer: true,
+      };
+    case ActionType.LOAD_FAIL:
+        return {
+          ...state,
+          isLoadedOffer: action.payload,
+        };
     case ActionType.REQUIRED_AUTHORIZATION:
       //  console.log('22', action.payload)
       return {

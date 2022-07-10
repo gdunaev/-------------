@@ -86,7 +86,10 @@ const AuthorizationStatus = {
 
 const ApiPaths = {
   HOTELS: `/hotels`,
-  LOGIN: `/login`
+  LOGIN: `/login`,
+  LOAD_OFFER: `/hotels/`,
+  COMMENTS: `/comments/:`,
+  NEARBY_OFFERS: `/hotels/id/nearby/`,
 };
 
 

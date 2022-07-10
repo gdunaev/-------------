@@ -6,6 +6,9 @@ const ActionType = {
   REQUIRED_AUTHORIZATION: `requiredAuthorization`,
   REDIRECT_TO_ROUTE: `redirectToRoute`,
   AUTHORIZED_USER: `authorizedUser`,
+  LOAD_OFFER: `loadOffer`,
+  LOAD_OTHER_OFFERS: `loadOtherOffers`,
+  LOAD_FAIL: `loadFail`,
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -38,6 +41,18 @@ const ActionCreator = {
     type: ActionType.AUTHORIZED_USER,
     payload: status,
   }),
+  loadOffer: (offer) => ({
+    type: ActionType.LOAD_OFFER,
+    payload: offer,
+  }),
+  loadFail: (status) => ({
+    type: ActionType.LOAD_FAIL,
+    payload: status,
+  }),
+  loadOtherOffers: (offers) => ({
+    type: ActionType.LOAD_OTHER_OFFERS,
+    payload: offers,
+  })
 };
 
 export {ActionType, ActionCreator};

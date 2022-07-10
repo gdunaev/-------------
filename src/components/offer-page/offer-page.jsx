@@ -1,17 +1,17 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {getRating, cityMap, HousingType, AppRoute, QUANTITY_IMAGES, QUANTITY_OTHER_PLACES} from "../../const";
+import {getRating, cityMap, HousingType, AppRoute, QUANTITY_IMAGES} from "../../const";
 import {useParams} from "react-router-dom";
 import ReviewsList from "../reviews-list/reviews-list";
 import {comments} from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import {offersPropTypes} from "../../prop-types-site";
+import {offersPropTypes, offerPropTypes} from "../../prop-types-site";
 import {connect} from "react-redux";
 import browserHistory from "../../browser-history";
 import ImagesOffer from "../images-offer/images-offer";
 import PropTypes from "prop-types";
-import {fetchOffers} from "../../services/api-actions";
+import {fetchOffer, fetchOtherOffers} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
 import NotFoundPage from "../not-found-page/not-found-page";
 
@@ -34,42 +34,70 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const {offersAll, emailUser, isDataLoaded, onLoadData} = props;
+  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, isLoadedOtherOffers} = props;
 
   const {id} = useParams();
 
+  // console.log(`000`, isLoadedOffer);
 
   useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
+    if (loadedOffer.id !== Number(id)) {
+      // console.log(`111`, isLoadedOffer);
+      onLoadOffer(id);
+      // console.log(`222`, isLoadedOffer);
     }
-  }, [isDataLoaded]);
 
-  if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
+  }, [loadedOffer]);
 
-  // console.log("222", offersAll, isDataLoaded)
+  useEffect(() => {
+    if (loadedOffer.id !== Number(id)) {
+      // console.log(`111`, isLoadedOffer);
+      onLoadOtherOffers(id);
+      // console.log(`222`, isLoadedOffer);
+    }
 
-  const history = browserHistory;
+  }, [otherOffers]);
 
+  console.log(`333`, isLoadedOffer);
 
-  const findedOffer = offersAll.find((offer) => Number(id) === offer.id);
-
-
-  if (!findedOffer) {
-    // console.log("111", offers);
+  if (!isLoadedOffer) {
+    // console.log("444", loadedOffer);
     return (
       <NotFoundPage />
     );
   }
 
+  if (loadedOffer.id !== Number(id)) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
-  // const offer = offersAll.filter((value) => value.id === Number(id))[0];
 
-  // console.log("111", findedOffer);
+
+  // console.log(`222`, loadedOffer);
+
+  const getOtherOffersComponent = () => {
+
+    if (otherOffers.length === 0) {
+      return ``;
+    }
+
+    return otherOffers.map((currentOffer) => (
+      <OfferCard
+        key={currentOffer.id}
+        offer={currentOffer}
+        otherOffer={true}
+        onMouseOver={handleMouseOver}
+      />
+    ));
+
+  };
+
+  const history = browserHistory;
+
+
+
 
   const {
     isPremium,
@@ -81,15 +109,11 @@ const OfferPage = (props) => {
     rating,
     city,
     images,
-  } = findedOffer;
+  } = loadedOffer;
 
   const reviews = comments.filter((value) => value.id === Number(id));
   const reviewsLength = reviews ? `${reviews.length}` : ``;
 
-  // const [userForm, setUserForm] = React.useState({
-  //   rating: ``,
-  //   review: ``,
-  // });
 
   const handleFieldChange = () => {
     // const {name, value} = evt.target;
@@ -99,22 +123,22 @@ const OfferPage = (props) => {
 
   const ratingStyle = getRating(rating);
 
-  // отбираем офферы по городу исключая наш, который отрисовываем
-  const otherOffers = offersAll
-    .filter(
-        (currentOffer) =>
-          currentOffer.city.name === city.name && currentOffer !== findedOffer
-    )
-    .slice(0, QUANTITY_OTHER_PLACES);
+  let isOtherOffers = false;
 
-  const otherOffersMap = otherOffers.slice();
-  otherOffersMap.push(findedOffer);
+  // офферы для карты, 3 (поблизости, otherOffers) + 1 (основной, loadedOffer)
+  let otherOffersMap = [];
+  if (otherOffers.length !== 0) {
+    // console.log(`11`, otherOffers.length);
+    otherOffersMap = otherOffers.slice();
+    otherOffersMap.push(loadedOffer);
+    isOtherOffers = true;
+  }
 
   // выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
   const emailUserText = emailUser ? emailUser : `Sign in`;
   const isUser = emailUser ? true : false;
 
-  // console.log('222', isUser, emailUser)
+  // console.log(`222`, loadedOffer.id, isOtherOffers, otherOffers.length);
 
   const handleAvatarClick = () => {
     return emailUser
@@ -449,18 +473,13 @@ const OfferPage = (props) => {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
+
               <div className="near-places__list places__list">
 
-                {otherOffers.map((currentOffer) => (
-                  <OfferCard
-                    key={currentOffer.id}
-                    offer={currentOffer}
-                    otherOffer={true}
-                    onMouseOver={handleMouseOver}
-                  />
-                ))}
+                {getOtherOffersComponent()}
 
               </div>
+
             </section>
           </div>
         </main>
@@ -472,20 +491,37 @@ const OfferPage = (props) => {
 OfferPage.propTypes = {
   offersAll: offersPropTypes,
   emailUser: PropTypes.string,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+
+  onLoadOffer: PropTypes.func.isRequired,
+  onLoadOtherOffers: PropTypes.func.isRequired,
+
+  loadedOffer: PropTypes.shape().isRequired,
+  isLoadedOffer: PropTypes.bool.isRequired,
+
+  otherOffers: offersPropTypes,
+  isLoadedOtherOffers: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offersAll: state.offersAll,
   emailUser: state.emailUser,
-  isDataLoaded: state.isDataLoaded,
+
+  isLoadedOffer: state.isLoadedOffer,
+  loadedOffer: state.loadedOffer,
+
+  isLoadedOtherOffers: state.isLoadedOtherOffers,
+  otherOffers: state.otherOffers,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchOffers());
+  onLoadOffer(id) {
+    dispatch(fetchOffer(id));
+    // dispatch(fetchOtherOffers(id));
   },
+  onLoadOtherOffers(id) {
+    dispatch(fetchOtherOffers(id));
+  }
 });
 
 export {OfferPage};
