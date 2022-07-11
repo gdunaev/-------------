@@ -40,49 +40,38 @@ const OfferPage = (props) => {
 
   // console.log(`000`, isLoadedOffer);
 
+  //два эффекта, на оффер и на офферы поблизости
   useEffect(() => {
     if (loadedOffer.id !== Number(id)) {
-      // console.log(`111`, isLoadedOffer);
       onLoadOffer(id);
-      // console.log(`222`, isLoadedOffer);
     }
-
   }, [loadedOffer]);
 
   useEffect(() => {
     if (loadedOffer.id !== Number(id)) {
-      // console.log(`111`, isLoadedOffer);
       onLoadOtherOffers(id);
-      // console.log(`222`, isLoadedOffer);
     }
-
   }, [otherOffers]);
 
-  console.log(`333`, isLoadedOffer);
-
+ //по умолчанию true, false ставит диспатч в случае ошибки при загрузке оффера
   if (!isLoadedOffer) {
-    // console.log("444", loadedOffer);
     return (
       <NotFoundPage />
     );
   }
 
+ //надпись при загрузке
   if (loadedOffer.id !== Number(id)) {
     return (
       <LoadingScreen />
     );
   }
 
-
-
-  // console.log(`222`, loadedOffer);
-
+ //вывод разметки для офферов поблизости
   const getOtherOffersComponent = () => {
-
     if (otherOffers.length === 0) {
       return ``;
     }
-
     return otherOffers.map((currentOffer) => (
       <OfferCard
         key={currentOffer.id}
@@ -91,13 +80,9 @@ const OfferPage = (props) => {
         onMouseOver={handleMouseOver}
       />
     ));
-
   };
 
   const history = browserHistory;
-
-
-
 
   const {
     isPremium,
@@ -120,26 +105,20 @@ const OfferPage = (props) => {
     // console.log('222', name)
     // setUserForm({...userForm, [name]: value});
   };
-
   const ratingStyle = getRating(rating);
-
-  let isOtherOffers = false;
 
   // офферы для карты, 3 (поблизости, otherOffers) + 1 (основной, loadedOffer)
   let otherOffersMap = [];
   if (otherOffers.length !== 0) {
-    // console.log(`11`, otherOffers.length);
     otherOffersMap = otherOffers.slice();
     otherOffersMap.push(loadedOffer);
-    isOtherOffers = true;
   }
 
-  // выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин
+  // выводим емайл пользователя в шапке, и переход к страницам Избранное/Логин по клику на аватарке
   const emailUserText = emailUser ? emailUser : `Sign in`;
   const isUser = emailUser ? true : false;
 
-  // console.log(`222`, loadedOffer.id, isOtherOffers, otherOffers.length);
-
+  //обработка клика по аватарке
   const handleAvatarClick = () => {
     return emailUser
       ? history.push(AppRoute.FAVORITES)
