@@ -38,7 +38,10 @@ const fetchOffer = (id) => (dispatch, _getState, api) => {
       const offer = adaptToClient(data);
       // console.log(`11`, offer.city.name);
       dispatch(ActionCreator.loadOffer(offer));
-      dispatch(ActionCreator.changeCity(offer.city.name)); //меняет город если id вдруг ввели в адресную строку
+
+      //меняет город если id вдруг ввели в адресную строку
+      dispatch(ActionCreator.changeCity(offer.city.name));
+      
     }
     )
     .catch(() => dispatch(ActionCreator.loadFail(false)));
@@ -49,6 +52,9 @@ const fetchOtherOffers = (id) => (dispatch, _getState, api) => (
       .then(({data}) => {
         const offers = data.map((offer) => adaptToClient(offer));
         dispatch(ActionCreator.loadOtherOffers(offers));
+
+        //запоминаем id, при его изменении будем получать новые офферы поблизости
+        dispatch(ActionCreator.setOtherOffersId(id));
       }
       ).catch()
 );
@@ -61,8 +67,9 @@ const fetchCommentsOffer = (id) => (dispatch, _getState, api) => (
       // const state = getState();
       // console.log(`11`, id);
       dispatch(ActionCreator.loadCommentsOffer(comments));
-      dispatch(ActionCreator.setCurrentId(id));
-      // console.log(`44`, state.offers);
+
+      //запоминаем id, при его изменении будем получать новые комментарии
+      dispatch(ActionCreator.setCommentsId(id)); 
     }
     )
 );

@@ -33,24 +33,25 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer} = props;
+  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
 
   const {id} = useParams();
+  const currentId = Number(id);
 
-  // console.log(`000`, isLoadedOffer);
+  // console.log(`000`, otherOffersId);
 
   //два эффекта, на оффер и на офферы поблизости
   useEffect(() => {
-    if (loadedOffer.id !== Number(id)) {
-      onLoadOffer(id);
+    if (loadedOffer.id !== currentId) {
+      onLoadOffer(currentId);
     }
-  }, [loadedOffer]);
+  }, []);
 
   useEffect(() => {
-    if (loadedOffer.id !== Number(id)) {
-      onLoadOtherOffers(id);
+    if (otherOffersId !== currentId) {
+      onLoadOtherOffers(currentId);
     }
-  }, [otherOffers]);
+  }, []);
 
  
 
@@ -62,7 +63,7 @@ const OfferPage = (props) => {
   }
 
  //надпись при загрузке
-  if (loadedOffer.id !== Number(id)) {
+  if (loadedOffer.id !== currentId) {
     return (
       <LoadingScreen />
     );
@@ -289,7 +290,7 @@ const OfferPage = (props) => {
 
                 <section className="property__reviews reviews">
                   
-                  <ReviewsList id={id}/>
+                  <ReviewsList id={currentId}/>
 
                   {isUser && <form className="reviews__form form" action="#" method="post">
                     <label
@@ -474,6 +475,7 @@ OfferPage.propTypes = {
   isLoadedOffer: PropTypes.bool.isRequired,
 
   otherOffers: offersPropTypes,
+  otherOffersId: PropTypes.number.isRequired, 
 };
 
 const mapStateToProps = (state) => ({
@@ -484,6 +486,7 @@ const mapStateToProps = (state) => ({
   loadedOffer: state.loadedOffer,
 
   otherOffers: state.otherOffers,
+  otherOffersId: state.otherOffersId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

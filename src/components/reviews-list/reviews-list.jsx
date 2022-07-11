@@ -7,13 +7,13 @@ import {fetchCommentsOffer} from "../../services/api-actions";
 
 const ReviewsList = (props) => {
 
-  const {commentsOffer, onLoadCommentsOffer, currentId, id} = props;
+  const {commentsOffer, onLoadCommentsOffer, commentsId, id} = props;
 
   useEffect(() => {
-    if (id !== currentId) {
+    if (id !== commentsId) {
       onLoadCommentsOffer(id);
     }
-  }, [id]);
+  }, []);
 
   const getReviewsComponent = () => {
     if (commentsOffer.length === 0) {
@@ -43,12 +43,12 @@ const ReviewsList = (props) => {
 ReviewsList.propTypes = {
   commentsOffer: PropTypes.arrayOf(reviewPropTypes).isRequired,
   onLoadCommentsOffer: PropTypes.func.isRequired, 
-  currentId: PropTypes.number.isRequired,
+  commentsId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   commentsOffer: state.commentsOffer,
-  currentId: state.currentId,
+  commentsId: state.commentsId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

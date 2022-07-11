@@ -10,7 +10,8 @@ const ActionType = {
   LOAD_OTHER_OFFERS: `loadOtherOffers`,
   LOAD_FAIL: `loadFail`,
   LOAD_COMMENTS_OFFER: `loadCommentsOffer`,
-  SET_CURRENT_ID: `setCurrentId`
+  SET_COMMENTS_ID: `setCommentsId`,
+  SET_OTHER_OFFERS_ID: `setOtherOffersId`
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -27,8 +28,12 @@ const ActionCreator = {
     type: ActionType.OFFERS_SORTING,
     payload: id,
   }),
-  setCurrentId: (id) => ({
-    type: ActionType.SET_CURRENT_ID,
+  setCommentsId: (id) => ({
+    type: ActionType.SET_COMMENTS_ID,
+    payload: id,
+  }),
+  setOtherOffersId: (id) => ({
+    type: ActionType.SET_OTHER_OFFERS_ID,
     payload: id,
   }),
   loadOffers: (offers) => ({
