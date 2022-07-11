@@ -88,7 +88,7 @@ const ApiPaths = {
   HOTELS: `/hotels`,
   LOGIN: `/login`,
   LOAD_OFFER: `/hotels/`,
-  COMMENTS: `/comments/:`,
+  COMMENTS: `/comments/`,
   NEARBY_OFFERS: `/hotels/id/nearby/`,
 };
 

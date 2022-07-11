@@ -3,10 +3,9 @@ import {Link} from "react-router-dom";
 import {getRating, cityMap, HousingType, AppRoute, QUANTITY_IMAGES} from "../../const";
 import {useParams} from "react-router-dom";
 import ReviewsList from "../reviews-list/reviews-list";
-import {comments} from "../../mocks/comments";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import {offersPropTypes, offerPropTypes} from "../../prop-types-site";
+import {offersPropTypes} from "../../prop-types-site";
 import {connect} from "react-redux";
 import browserHistory from "../../browser-history";
 import ImagesOffer from "../images-offer/images-offer";
@@ -34,7 +33,7 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, isLoadedOtherOffers} = props;
+  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer} = props;
 
   const {id} = useParams();
 
@@ -52,6 +51,8 @@ const OfferPage = (props) => {
       onLoadOtherOffers(id);
     }
   }, [otherOffers]);
+
+ 
 
  //по умолчанию true, false ставит диспатч в случае ошибки при загрузке оффера
   if (!isLoadedOffer) {
@@ -96,8 +97,7 @@ const OfferPage = (props) => {
     images,
   } = loadedOffer;
 
-  const reviews = comments.filter((value) => value.id === Number(id));
-  const reviewsLength = reviews ? `${reviews.length}` : ``;
+  
 
 
   const handleFieldChange = () => {
@@ -288,12 +288,8 @@ const OfferPage = (props) => {
                 </div>
 
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">
-                    Reviews &middot;{` `}
-                    <span className="reviews__amount">{reviewsLength}</span>
-                  </h2>
-
-                  <ReviewsList reviews={reviews} />
+                  
+                  <ReviewsList id={id}/>
 
                   {isUser && <form className="reviews__form form" action="#" method="post">
                     <label
@@ -473,12 +469,11 @@ OfferPage.propTypes = {
 
   onLoadOffer: PropTypes.func.isRequired,
   onLoadOtherOffers: PropTypes.func.isRequired,
-
+  
   loadedOffer: PropTypes.shape().isRequired,
   isLoadedOffer: PropTypes.bool.isRequired,
 
   otherOffers: offersPropTypes,
-  isLoadedOtherOffers: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -488,19 +483,16 @@ const mapStateToProps = (state) => ({
   isLoadedOffer: state.isLoadedOffer,
   loadedOffer: state.loadedOffer,
 
-  isLoadedOtherOffers: state.isLoadedOtherOffers,
   otherOffers: state.otherOffers,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
-    // dispatch(fetchOtherOffers(id));
   },
   onLoadOtherOffers(id) {
     dispatch(fetchOtherOffers(id));
-  }
+  },
 });
 
 export {OfferPage};

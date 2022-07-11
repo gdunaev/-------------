@@ -9,6 +9,8 @@ const ActionType = {
   LOAD_OFFER: `loadOffer`,
   LOAD_OTHER_OFFERS: `loadOtherOffers`,
   LOAD_FAIL: `loadFail`,
+  LOAD_COMMENTS_OFFER: `loadCommentsOffer`,
+  SET_CURRENT_ID: `setCurrentId`
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -23,6 +25,10 @@ const ActionCreator = {
   }),
   offersSorting: (id) => ({
     type: ActionType.OFFERS_SORTING,
+    payload: id,
+  }),
+  setCurrentId: (id) => ({
+    type: ActionType.SET_CURRENT_ID,
     payload: id,
   }),
   loadOffers: (offers) => ({
@@ -52,7 +58,11 @@ const ActionCreator = {
   loadOtherOffers: (offers) => ({
     type: ActionType.LOAD_OTHER_OFFERS,
     payload: offers,
-  })
+  }),
+  loadCommentsOffer: (comments) => ({
+    type: ActionType.LOAD_COMMENTS_OFFER,
+    payload: comments,
+  }),
 };
 
 export {ActionType, ActionCreator};

@@ -28,6 +28,29 @@ const adaptToClient = (offer) => {
   return adaptedOffer;
 };
 
+
+const adaptCommentsToClient = (comment) => {
+  const adaptedComment = Object.assign(
+      {},
+      comment,
+      {
+        user: Object.assign(
+            {},
+            comment.user,
+            {
+              isPro: comment.user.is_pro,
+              avatarUrl: comment.user.avatar_url,
+            }
+        )
+      },
+  );
+
+  delete adaptedComment.user.is_pro;
+  delete adaptedComment.user.avatar_url;
+
+  return adaptedComment;
+};
+
 const adaptToServer = (offer) => {
 
   const adaptedOffer = Object.assign(
@@ -60,4 +83,4 @@ const adaptToServer = (offer) => {
   return adaptedOffer;
 };
 
-export {adaptToClient, adaptToServer};
+export {adaptToClient, adaptToServer, adaptCommentsToClient};

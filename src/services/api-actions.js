@@ -1,6 +1,6 @@
 import {ActionCreator} from "../store/action";
 import {AuthorizationStatus} from "../const";
-import {adaptToClient} from "./data-adapter";
+import {adaptToClient, adaptCommentsToClient} from "./data-adapter";
 import {ApiPaths, AppRoute} from "../const";
 
 const fetchOffers = () => (dispatch, getState, api) => (
@@ -54,16 +54,16 @@ const fetchOtherOffers = (id) => (dispatch, _getState, api) => (
 );
 
 
-const fetchComments = () => (dispatch, _getState, api) => (
-  api.get(ApiPaths.HOTELS)
+const fetchCommentsOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`${ApiPaths.COMMENTS}${id}`)
     .then(({data}) => {
-      const offers = data.map((offer) => adaptToClient(offer));
-      const state = getState();
-      // console.log(`11`, offers);
-      dispatch(ActionCreator.loadOffers(offers));
-      // dispatch(ActionCreator.changeCity(state.city));
+      const comments = data.map((comment) => adaptCommentsToClient(comment));
+      // const state = getState();
+      // console.log(`11`, id);
+      dispatch(ActionCreator.loadCommentsOffer(comments));
+      dispatch(ActionCreator.setCurrentId(id));
       // console.log(`44`, state.offers);
     }
     )
 );
-export {fetchOffers, checkAuth, login, fetchOffer, fetchComments, fetchOtherOffers};
+export {fetchOffers, checkAuth, login, fetchOffer, fetchCommentsOffer, fetchOtherOffers};

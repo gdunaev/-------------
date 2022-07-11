@@ -15,7 +15,8 @@ const initialState = {
   loadedOffer: {},
   isLoadedOffer: true,
   otherOffers: [],
-  isLoadedOtherOffers: false
+  commentsOffer: [],
+  currentId: 0,
 };
 
 // offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY)
@@ -37,6 +38,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeOfferId: action.payload
       };
+      case ActionType.CURRENT_ID:
+        // console.log(`11`, action)
+        return {
+          ...state,
+          currentId: action.payload
+        };
     case ActionType.OFFERS_SORTING:
       // console.log(`11`, getOffersSorting(action.payload, state.offers))
       return {
@@ -56,6 +63,11 @@ const reducer = (state = initialState, action) => {
           otherOffers: action.payload,
           isLoadedOtherOffers: true
         };
+    case ActionType.LOAD_COMMENTS_OFFER:
+          return {
+            ...state,
+            commentsOffer: action.payload,
+          };
     case ActionType.LOAD_OFFER:
       return {
         ...state,
