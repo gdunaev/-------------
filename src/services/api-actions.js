@@ -1,11 +1,11 @@
-import {ActionCreator} from "../store/action";
-import {AuthorizationStatus} from "../const";
-import {adaptToClient, adaptCommentsToClient} from "./data-adapter";
-import {ApiPaths, AppRoute} from "../const";
+import { ActionCreator } from "../store/action";
+import { AuthorizationStatus } from "../const";
+import { adaptToClient, adaptCommentsToClient } from "./data-adapter";
+import { ApiPaths, AppRoute } from "../const";
 
 const fetchOffers = () => (dispatch, getState, api) => (
   api.get(ApiPaths.HOTELS)
-    .then(({data}) => {
+    .then(({ data }) => {
       const offers = data.map((offer) => adaptToClient(offer));
       const state = getState();
       // console.log(`11`, offers);
@@ -18,14 +18,16 @@ const fetchOffers = () => (dispatch, getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiPaths.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {})
+    .then(() => 
+    console.log('Успешно')
+    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .catch(() => { })
 );
 
 // при открытии Favorites, если нет авторизации перекидывает на SignIn, и там после
 // авторизации перекидывает на Главную.
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(ApiPaths.LOGIN, {email, password})
+const login = ({ login: email, password }) => (dispatch, _getState, api) => (
+  api.post(ApiPaths.LOGIN, { email, password })
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.authorizedUser(email)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
@@ -34,14 +36,14 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
 
 const fetchOffer = (id) => (dispatch, _getState, api) => {
   api.get(`${ApiPaths.LOAD_OFFER}${id}`)
-    .then(({data}) => {
+    .then(({ data }) => {
       const offer = adaptToClient(data);
       // console.log(`11`, offer.city.name);
       dispatch(ActionCreator.loadOffer(offer));
 
       //меняет город если id вдруг ввели в адресную строку
       dispatch(ActionCreator.changeCity(offer.city.name));
-      
+
     }
     )
     .catch(() => dispatch(ActionCreator.loadFail(false)));
@@ -49,28 +51,38 @@ const fetchOffer = (id) => (dispatch, _getState, api) => {
 
 const fetchOtherOffers = (id) => (dispatch, _getState, api) => (
   api.get(ApiPaths.NEARBY_OFFERS.replace(`id`, id))
-      .then(({data}) => {
-        const offers = data.map((offer) => adaptToClient(offer));
-        dispatch(ActionCreator.loadOtherOffers(offers));
+    .then(({ data }) => {
+      const offers = data.map((offer) => adaptToClient(offer));
+      dispatch(ActionCreator.loadOtherOffers(offers));
 
-        //запоминаем id, при его изменении будем получать новые офферы поблизости
-        dispatch(ActionCreator.setOtherOffersId(id));
-      }
-      ).catch()
+      //запоминаем id, при его изменении будем получать новые офферы поблизости
+      dispatch(ActionCreator.setOtherOffersId(id));
+    }
+    ).catch()
 );
-
 
 const fetchCommentsOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiPaths.COMMENTS}${id}`)
-    .then(({data}) => {
+    .then(({ data }) => {
       const comments = data.map((comment) => adaptCommentsToClient(comment));
       // const state = getState();
       // console.log(`11`, id);
       dispatch(ActionCreator.loadCommentsOffer(comments));
 
       //запоминаем id, при его изменении будем получать новые комментарии
-      dispatch(ActionCreator.setCommentsId(id)); 
+      dispatch(ActionCreator.setCommentsId(id));
     }
     )
 );
-export {fetchOffers, checkAuth, login, fetchOffer, fetchCommentsOffer, fetchOtherOffers};
+
+const commentsSend = (id, comment) => (dispatch, _getState, api) => (
+
+  checkAuth();
+
+  // api.post(`${ApiPaths.COMMENTS}${id}`, comment)
+  //   .then(({ data }) =>
+  //   console.log('11', data))
+  //   .catch()
+);
+
+export { fetchOffers, checkAuth, login, fetchOffer, fetchCommentsOffer, fetchOtherOffers, commentsSend };

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {Link} from "react-router-dom";
 import {getRating, cityMap, HousingType, AppRoute, QUANTITY_IMAGES} from "../../const";
 import {useParams} from "react-router-dom";
@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 import browserHistory from "../../browser-history";
 import ImagesOffer from "../images-offer/images-offer";
 import PropTypes from "prop-types";
-import {fetchOffer, fetchOtherOffers} from "../../services/api-actions";
+import {fetchOffer, fetchOtherOffers, commentsSend} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
 import NotFoundPage from "../not-found-page/not-found-page";
 
@@ -33,7 +33,10 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const {emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
+  const {onSubmit, emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
+
+  const ratingRef = useRef();
+  const commentRef = useRef();
 
   const {id} = useParams();
   const currentId = Number(id);
@@ -106,6 +109,19 @@ const OfferPage = (props) => {
     // console.log('222', name)
     // setUserForm({...userForm, [name]: value});
   };
+
+
+  
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit(id, {
+      rating: ratingRef.current.value,
+      comment: commentRef.current.value,
+    });
+    // console.log('222', ratingRef.current.value, commentRef.current.value)
+  }; 
+
   const ratingStyle = getRating(rating);
 
   // офферы для карты, 3 (поблизости, otherOffers) + 1 (основной, loadedOffer)
@@ -292,7 +308,7 @@ const OfferPage = (props) => {
                   
                   <ReviewsList id={currentId}/>
 
-                  {isUser && <form className="reviews__form form" action="#" method="post">
+                  {isUser && <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
                     <label
                       className="reviews__label form__label"
                       htmlFor="review"
@@ -307,6 +323,7 @@ const OfferPage = (props) => {
                         id="5-stars"
                         type="radio"
                         onClick={handleFieldChange}
+                        ref={ratingRef}
                       />
                       <label
                         htmlFor="5-stars"
@@ -417,6 +434,7 @@ const OfferPage = (props) => {
                       name="review"
                       placeholder="Tell how was your stay, what you like and what can be improved"
                       onChange={handleFieldChange}
+                      ref={commentRef}
                     ></textarea>
                     <div className="reviews__button-wrapper">
                       <p className="reviews__help">
@@ -476,6 +494,8 @@ OfferPage.propTypes = {
 
   otherOffers: offersPropTypes,
   otherOffersId: PropTypes.number.isRequired, 
+
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -496,7 +516,11 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadOtherOffers(id) {
     dispatch(fetchOtherOffers(id));
   },
+  onSubmit(id, comment) {
+    dispatch(commentsSend(id, comment));
+  }
 });
+
 
 export {OfferPage};
 export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
