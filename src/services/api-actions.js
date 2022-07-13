@@ -83,7 +83,8 @@ const commentsSend = (id, comment) => (dispatch, _getState, api) => (
     .then(({ data }) => {
       console.log('11', data)
       const comments = data.map((comment) => adaptCommentsToClient(comment));
-      dispatch(ActionCreator.loadCommentsOffer(comments));
+      dispatch(ActionCreator.loadCommentsOffer(comments))
+      dispatch(ActionCreator.setRating(0));
     })
     .catch(() => {
       console.log('222', )

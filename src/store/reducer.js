@@ -18,6 +18,7 @@ const initialState = {
   commentsOffer: [],
   commentsId: 0,
   otherOffersId: 0,
+  rating: 0,
 };
 
 // offers.filter((currentOffer) => currentOffer.city.name === DEFAULT_CITY)
@@ -98,7 +99,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         emailUser: action.payload,
       };
-
+    case ActionType.SET_RATING:
+        // console.log('11', action.payload)
+        return {
+          ...state,
+          rating: action.payload,
+        };
   }
 
   return state;

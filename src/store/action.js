@@ -11,7 +11,8 @@ const ActionType = {
   LOAD_FAIL: `loadFail`,
   LOAD_COMMENTS_OFFER: `loadCommentsOffer`,
   SET_COMMENTS_ID: `setCommentsId`,
-  SET_OTHER_OFFERS_ID: `setOtherOffersId`
+  SET_OTHER_OFFERS_ID: `setOtherOffersId`,
+  SET_RATING: `setRating`,
 };
 
 // возвращает объект с функциями создающими объекты для изменения
@@ -67,6 +68,10 @@ const ActionCreator = {
   loadCommentsOffer: (comments) => ({
     type: ActionType.LOAD_COMMENTS_OFFER,
     payload: comments,
+  }),
+  setRating: (rating) => ({
+    type: ActionType.SET_RATING,
+    payload: rating,
   }),
 };
 

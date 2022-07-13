@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import {fetchOffer, fetchOtherOffers, commentsSend} from "../../services/api-actions";
 import LoadingScreen from "../loading-screen/loading-screen";
 import NotFoundPage from "../not-found-page/not-found-page";
+import {ActionCreator} from "../../store/action";
 
 
 const getImagesSection = (images) => {
@@ -33,9 +34,14 @@ const getImagesSection = (images) => {
 };
 
 const OfferPage = (props) => {
-  const {onSubmit, emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
+  const {onSubmit, test, rating, emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
 
   const ratingRef = useRef();
+  // const ratingRef2 = useRef();
+  // const ratingRef3 = useRef();
+  // const ratingRef4 = useRef();
+  // const ratingRef5 = useRef();
+
   const commentRef = useRef();
 
   const {id} = useParams();
@@ -56,7 +62,7 @@ const OfferPage = (props) => {
     }
   }, []);
 
- 
+
 
  //по умолчанию true, false ставит диспатч в случае ошибки при загрузке оффера
   if (!isLoadedOffer) {
@@ -96,22 +102,37 @@ const OfferPage = (props) => {
     bedrooms,
     title,
     type,
-    rating,
+    ratingOffer,
     city,
     images,
   } = loadedOffer;
 
-  
 
 
-  const handleFieldChange = () => {
+
+  const handleRatingClick = (evt) => {
     // const {name, value} = evt.target;
-    // console.log('222', name)
+    evt.preventDefault();
+    // console.log('11', evt.target.value)
+    // console.log('222', ratingRef.current.defaultChecked)
+    // // setUserForm({...userForm, [name]: value});
+    // ratingRef.current.defaultChecked = false;
+    // console.log('33', ratingRef.current.defaultChecked)
+
+    test(Number(evt.target.value));
+    // console.log('22', rating)
+  };
+
+  const handleFieldChange = (evt) => {
+    // const {name, value} = evt.target;
+    console.log('33', commentRef.current.value)
     // setUserForm({...userForm, [name]: value});
   };
 
-
-  
+  const clearForm = () => {
+    ratingRef.current.value = 0;
+    commentRef.current.value = '';
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -120,9 +141,10 @@ const OfferPage = (props) => {
       comment: commentRef.current.value,
     });
     // console.log('222', ratingRef.current.value, commentRef.current.value)
-  }; 
+    clearForm();
+  };
 
-  const ratingStyle = getRating(rating);
+  const ratingStyle = getRating(ratingOffer);
 
   // офферы для карты, 3 (поблизости, otherOffers) + 1 (основной, loadedOffer)
   let otherOffersMap = [];
@@ -305,7 +327,7 @@ const OfferPage = (props) => {
                 </div>
 
                 <section className="property__reviews reviews">
-                  
+
                   <ReviewsList id={currentId}/>
 
                   {isUser && <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -322,7 +344,8 @@ const OfferPage = (props) => {
                         value="5"
                         id="5-stars"
                         type="radio"
-                        onClick={handleFieldChange}
+                        defaultChecked={rating === 5}
+                        onClick={handleRatingClick}
                         ref={ratingRef}
                       />
                       <label
@@ -345,7 +368,10 @@ const OfferPage = (props) => {
                         value="4"
                         id="4-stars"
                         type="radio"
-                        onClick={handleFieldChange}
+                        onClick={handleRatingClick}
+                        defaultChecked={rating === 4}
+
+
                       />
                       <label
                         htmlFor="4-stars"
@@ -367,7 +393,8 @@ const OfferPage = (props) => {
                         value="3"
                         id="3-stars"
                         type="radio"
-                        onClick={handleFieldChange}
+                        onClick={handleRatingClick}
+                        defaultChecked={rating === 3}
                       />
                       <label
                         htmlFor="3-stars"
@@ -389,7 +416,8 @@ const OfferPage = (props) => {
                         value="2"
                         id="2-stars"
                         type="radio"
-                        onClick={handleFieldChange}
+                        onClick={handleRatingClick}
+                        defaultChecked={rating === 2}
                       />
                       <label
                         htmlFor="2-stars"
@@ -411,7 +439,8 @@ const OfferPage = (props) => {
                         value="1"
                         id="1-star"
                         type="radio"
-                        onClick={handleFieldChange}
+                        onClick={handleRatingClick}
+                        defaultChecked={rating === 1}
                       />
                       <label
                         htmlFor="1-star"
@@ -488,14 +517,16 @@ OfferPage.propTypes = {
 
   onLoadOffer: PropTypes.func.isRequired,
   onLoadOtherOffers: PropTypes.func.isRequired,
-  
+
   loadedOffer: PropTypes.shape().isRequired,
   isLoadedOffer: PropTypes.bool.isRequired,
 
   otherOffers: offersPropTypes,
-  otherOffersId: PropTypes.number.isRequired, 
+  otherOffersId: PropTypes.number.isRequired,
 
   onSubmit: PropTypes.func.isRequired,
+  test: PropTypes.func.isRequired,
+  rating: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
@@ -507,6 +538,8 @@ const mapStateToProps = (state) => ({
 
   otherOffers: state.otherOffers,
   otherOffersId: state.otherOffersId,
+
+  rating: state.rating,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -518,6 +551,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSubmit(id, comment) {
     dispatch(commentsSend(id, comment));
+  },
+  test(t) {
+    dispatch(ActionCreator.setRating(t));
   }
 });
 
