@@ -18,10 +18,13 @@ const fetchOffers = () => (dispatch, getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiPaths.LOGIN)
-    .then(() => 
-    console.log('Успешно')
-    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => { })
+    .then(() => {
+    console.log('Успешно');
+    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH))
+    })
+    .catch(() => {
+      console.log('НЕ Успешно');
+    })
 );
 
 // при открытии Favorites, если нет авторизации перекидывает на SignIn, и там после
@@ -76,13 +79,15 @@ const fetchCommentsOffer = (id) => (dispatch, _getState, api) => (
 );
 
 const commentsSend = (id, comment) => (dispatch, _getState, api) => (
-
-  checkAuth();
-
-  // api.post(`${ApiPaths.COMMENTS}${id}`, comment)
-  //   .then(({ data }) =>
-  //   console.log('11', data))
-  //   .catch()
+  api.post(`${ApiPaths.COMMENTS}${id}`, comment)
+    .then(({ data }) => {
+      console.log('11', data)
+      const comments = data.map((comment) => adaptCommentsToClient(comment));
+      dispatch(ActionCreator.loadCommentsOffer(comments));
+    })
+    .catch(() => {
+      console.log('222', )
+    })
 );
 
 export { fetchOffers, checkAuth, login, fetchOffer, fetchCommentsOffer, fetchOtherOffers, commentsSend };
