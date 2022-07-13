@@ -49,7 +49,7 @@ const OfferPage = (props) => {
 
   // console.log(`000`, otherOffersId);
 
-  //два эффекта, на оффер и на офферы поблизости
+  // два эффекта, на оффер и на офферы поблизости
   useEffect(() => {
     if (loadedOffer.id !== currentId) {
       onLoadOffer(currentId);
@@ -63,22 +63,21 @@ const OfferPage = (props) => {
   }, []);
 
 
-
- //по умолчанию true, false ставит диспатч в случае ошибки при загрузке оффера
+  // по умолчанию true, false ставит диспатч в случае ошибки при загрузке оффера
   if (!isLoadedOffer) {
     return (
       <NotFoundPage />
     );
   }
 
- //надпись при загрузке
+  // надпись при загрузке
   if (loadedOffer.id !== currentId) {
     return (
       <LoadingScreen />
     );
   }
 
- //вывод разметки для офферов поблизости
+  // вывод разметки для офферов поблизости
   const getOtherOffersComponent = () => {
     if (otherOffers.length === 0) {
       return ``;
@@ -108,8 +107,6 @@ const OfferPage = (props) => {
   } = loadedOffer;
 
 
-
-
   const handleRatingClick = (evt) => {
     // const {name, value} = evt.target;
     evt.preventDefault();
@@ -125,23 +122,23 @@ const OfferPage = (props) => {
 
   const handleFieldChange = (evt) => {
     // const {name, value} = evt.target;
-    console.log('33', commentRef.current.value)
+    console.log(`33`, commentRef.current.value);
     // setUserForm({...userForm, [name]: value});
   };
 
-  const clearForm = () => {
-    ratingRef.current.value = 0;
-    commentRef.current.value = '';
-  };
+  // const clearForm = () => {
+  //   ratingRef.current.value = 0;
+  //   commentRef.current.value = '';
+  // };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit(id, {
-      rating: ratingRef.current.value,
+      rating,
       comment: commentRef.current.value,
     });
     // console.log('222', ratingRef.current.value, commentRef.current.value)
-    clearForm();
+    // clearForm();
   };
 
   const ratingStyle = getRating(ratingOffer);
@@ -157,7 +154,7 @@ const OfferPage = (props) => {
   const emailUserText = emailUser ? emailUser : `Sign in`;
   const isUser = emailUser ? true : false;
 
-  //обработка клика по аватарке
+  // обработка клика по аватарке
   const handleAvatarClick = () => {
     return emailUser
       ? history.push(AppRoute.FAVORITES)
