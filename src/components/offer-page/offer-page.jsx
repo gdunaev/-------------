@@ -36,12 +36,6 @@ const getImagesSection = (images) => {
 const OfferPage = (props) => {
   const {onSubmit, test, rating, emailUser, onLoadOffer, onLoadOtherOffers, loadedOffer, otherOffers, isLoadedOffer, otherOffersId} = props;
 
-  const ratingRef = useRef();
-  // const ratingRef2 = useRef();
-  // const ratingRef3 = useRef();
-  // const ratingRef4 = useRef();
-  // const ratingRef5 = useRef();
-
   const commentRef = useRef();
 
   const {id} = useParams();
@@ -107,22 +101,26 @@ const OfferPage = (props) => {
   } = loadedOffer;
 
 
+  console.log('44', rating)
+
+  let currentRating = 0;
   const handleRatingClick = (evt) => {
     // const {name, value} = evt.target;
-    evt.preventDefault();
+    // evt.preventDefault();
     // console.log('11', evt.target.value)
     // console.log('222', ratingRef.current.defaultChecked)
     // // setUserForm({...userForm, [name]: value});
     // ratingRef.current.defaultChecked = false;
-    // console.log('33', ratingRef.current.defaultChecked)
+    console.log('33', rating)
 
-    test(Number(evt.target.value));
-    // console.log('22', rating)
+    // test(Number(evt.target.value));
+    currentRating = Number(evt.target.value);
+    console.log('22', currentRating)
   };
 
   const handleFieldChange = (evt) => {
     // const {name, value} = evt.target;
-    console.log(`33`, commentRef.current.value);
+    // console.log(`33`, commentRef.current.value);
     // setUserForm({...userForm, [name]: value});
   };
 
@@ -134,10 +132,9 @@ const OfferPage = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit(id, {
-      rating,
+      rating: currentRating,
       comment: commentRef.current.value,
     });
-    // console.log('222', ratingRef.current.value, commentRef.current.value)
     // clearForm();
   };
 
@@ -343,7 +340,6 @@ const OfferPage = (props) => {
                         type="radio"
                         defaultChecked={rating === 5}
                         onClick={handleRatingClick}
-                        ref={ratingRef}
                       />
                       <label
                         htmlFor="5-stars"
@@ -547,6 +543,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchOtherOffers(id));
   },
   onSubmit(id, comment) {
+    console.log('00', comment, id)
     dispatch(commentsSend(id, comment));
   },
   test(t) {

@@ -86,8 +86,8 @@ const commentsSend = (id, comment) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.loadCommentsOffer(comments))
       dispatch(ActionCreator.setRating(0));
     })
-    .catch(() => {
-      console.log('222', )
+    .catch((error) => {
+      console.log('222', error)
     })
 );
 
